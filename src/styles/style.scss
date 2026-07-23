@@ -1,35 +1,12 @@
+@use '../abstract/mixin' as mx;
+@use '../base/fonts';
+@use '../components/button';
+@use '../pages/home';
+
 body {
     height: 100vh;
+    max-width: 1440px;
+    background-color: rgba(48, 49, 49, 1);
+    color: white;
+    @include mx.flex-center;
 }
-
-.card {
-    height: 100px;
-    background-color: transparent;
-    border: none;
-    aspect-ratio: 1 / 1;
-
-    &__inner {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        transform-style: preserve-3d;
-        transition: all 300ms ease-in-out;
-    }
-
-    &__face {
-        position: absolute;
-        inset: 0;
-        background-color: black;
-        backface-visibility: hidden;
-
-        &--back {
-            transform: rotateY(180deg);
-            background-color: red;
-        }
-    }
-
-    &.is-flipped .card__inner{
-        transform: rotateY(180deg)
-    }
-}
-

@@ -5,15 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test</title>
 </head>
-<body>
-    
-    <section id="field">
-        <button class="card">
-            <div class="card__inner">
-                <div class="card__face"></div>
-                <div class="card__face card__face--back"></div>
-            </div>
+<body class="body">
+    <section class="display">
+        <h1>It´s play time.</h1>
+        <h2>Ready to play?</h2>
+        <button class="play-btn" onclick="openSettings()">
+            <img class="controller" src="/public/assets/stadia_controller.svg" alt="Controller">
+            <span>Play</span>
+            <img class="arrow d_block" src="./public/assets/Arrow 1.svg" alt="Arrow">
+            <img class="arrow d_none" src="./public/assets/Arrow.1.svg" alt="">
         </button>
+        <img class="image-controller" src="/public/assets/image-controller.svg" alt="Controller">
     </section>
 
     <script type="module" src="/src/main.ts"></script>

@@ -1,7 +1,5 @@
 import './styles/style.scss'
 
-init()
-
 function init() {
     const fieldRef = document.getElementById('field')
     if(fieldRef) {

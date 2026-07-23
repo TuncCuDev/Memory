@@ -1,0 +1,48 @@
+@use '../abstract/mixin' as mx;
+
+.play-btn {
+    background-color: rgba(240, 234, 110, 1);
+    font-family: "Red Rose", sans-serif;
+    margin: 0 auto;
+    height: 85px;
+    gap: 15px;
+    width: 225px;
+    color: rgba(48, 49, 49, 1);
+    transition: transform 0.4s ease;
+
+    @include mx.flex-center;
+
+    &:hover {
+        width: 245px;
+        cursor: pointer;
+        transform: scaleX(1.04);
+    }
+
+    img {
+        width: 40px;
+        transition: transform 0.4s ease;
+    }
+
+    span {
+        font-size: 40px;
+        font-weight: 600;
+    }
+
+    .d_none {
+        display: none;
+    }
+
+    &:hover {
+        .controller  {
+            transform: rotate(-25deg);
+        }
+
+       .d_none {
+            display: block;
+       }
+
+       .d_block {
+            display: none;
+       }
+    }
+}
