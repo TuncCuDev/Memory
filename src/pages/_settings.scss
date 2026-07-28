@@ -2,10 +2,11 @@
 
 .settings-page {
     font-family: "Almarai", sans-serif;
-    padding: 0px 150px;
+    padding: 0px 200px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    overflow: hidden;
 
     h3 {
         font-size: 50px;
@@ -174,6 +175,14 @@
                 color: #F0EA6E;
                 font-weight: bold;
                 font-size: xxx-large;
+
+                 &.active {
+                    color: transparent;
+                    width: 30px;
+                    height: 30px;
+                    background: url("../assets/Line 5") no-repeat center;
+                    background-size: contain;
+                }
             }
 
             p {
