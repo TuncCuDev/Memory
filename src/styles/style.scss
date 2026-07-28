@@ -1,12 +1,9 @@
-@use '../abstract/mixin' as mx;
 @use '../base/fonts';
 @use '../components/button';
 @use '../pages/home';
+@use '../pages/settings';
 
 body {
     height: 100vh;
     max-width: 1440px;
-    background-color: rgba(48, 49, 49, 1);
-    color: white;
-    @include mx.flex-center;
 }

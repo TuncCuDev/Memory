@@ -1,20 +1,28 @@
-h1 {
-    font-size: 48px;
-    font-family: "Almarai", sans-serif;
-    font-weight: normal;
-}
+@use '../abstract/mixin' as mx;
 
-h2{
-    font-size: 140px;
-    margin-block-start: 0;
-    margin-block-end: 70px;
-    font-family: "Red Rose", sans-serif;
-}
+.body {
+    background-color: rgba(48, 49, 49, 1);
+    color: white;
+    @include mx.flex-center;
 
-.image-controller {
-    position: absolute;
-    left: 0px;
-    top: 50%;
-    transform: translateY(35%);
-    height: 300px;
+    h1 {
+        font-size: 48px;
+        font-family: "Almarai", sans-serif;
+        font-weight: normal;
+    }
+
+    h2 {
+        font-size: 140px;
+        margin-block-start: 0;
+        margin-block-end: 70px;
+        font-family: "Red Rose", sans-serif;
+    }
+
+    .image-controller {
+        position: absolute;
+        left: 0px;
+        top: 50%;
+        transform: translateY(35%);
+        height: 300px;
+    }
 }
