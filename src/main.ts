@@ -1,5 +1,6 @@
 import './styles/style.scss'
 
+
 function makeSelectable(selector: string) {
     const items = document.querySelectorAll(selector);
 
@@ -10,6 +11,7 @@ function makeSelectable(selector: string) {
         });
     });
 }
+
 
 makeSelectable(".main-section__player");
 makeSelectable(".main-section__size");
@@ -37,3 +39,17 @@ themes.forEach(theme => {
     });
 });
 
+
+const startButton = document.querySelector(".start-game");
+
+startButton?.addEventListener("click", () => {
+    const theme = document.querySelector(".main-section__theme.active")?.textContent?.trim();
+    const player = document.querySelector(".main-section__player.active")?.textContent?.trim();
+    const size = document.querySelector(".main-section__size.active")?.textContent?.trim();
+
+    localStorage.setItem("theme", theme ?? "");
+    localStorage.setItem("player", player ?? "");
+    localStorage.setItem("size", size ?? "");
+
+    window.location.href = "game.html";
+});

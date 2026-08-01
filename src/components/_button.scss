@@ -47,3 +47,17 @@
        }
     }
 }
+
+.exit-button {
+    background-color: rgba(134, 233, 214, 0.3);
+    color: rgba(255, 255, 255, 1);
+    gap: 10px;
+    height: 40px;
+    width: 150px;
+    border: 3px solid rgba(77, 213, 188, 1);
+    font-family: "Red Rose", sans-serif;
+    font-size: 16px;
+    font-weight: bolder;
+    
+    @include mx.flex-center;
+}

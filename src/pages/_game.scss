@@ -1,0 +1,61 @@
+@use '../abstract/mixin' as mx;
+
+
+body {
+    background-color: rgba(48, 49, 49, 1);
+    font-family: "Red Rose", sans-serif;
+    color: rgba(255, 255, 255, 1);
+}
+
+
+header {
+    background-color: #4DD5BC33;
+    @include mx.flex-space;
+    margin: 25px 25px;
+    height: 80px;
+
+    .header-left {
+        gap: 25px;
+        background-color: rgba(134, 233, 214, 0.3);
+        height: 35px;
+        width: 250px;
+        @include mx.flex-center;
+       
+
+        &__first {
+            @include mx.flex-center;
+            color: rgba(43, 177, 255, 1);
+            font-weight: 700;
+
+            &::before {
+                content: "";
+                width: 24px;
+                height: 24px;
+                display: inline-block;
+                background: url("../assets/label.svg") no-repeat center/contain;;
+                margin-right: 8px;
+            }
+        }
+
+          &__second {
+            @include mx.flex-center;
+            color: rgba(245, 142, 57, 1);
+            font-weight: 700;
+
+            &::before {
+                content: "";
+                width: 24px;
+                height: 24px;
+                display: inline-block;
+                background: url("../assets/label2.svg") no-repeat center/contain;
+                margin-right: 8px;
+            }
+        }
+    }
+
+    .header-middle p {
+        font-size: 16px;
+        font-weight: 400;
+    }
+}
+
