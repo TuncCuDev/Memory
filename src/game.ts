@@ -101,15 +101,23 @@ function createBoard(cards: string[]) {
     if (!board) return;
 
     board.innerHTML = "";
+     const backImage = theme === "Code vibes theme" ? "/assets/A Front.svg" : "/assets/DA F.svg";
 
     cards.forEach(image => {
         const card = document.createElement("div");
         card.classList.add("card");
 
-        const img = document.createElement("img");
-        img.src = `../assets/${image}`;
+        const front = document.createElement("img");
+        front.classList.add("card__front");
+        front.src = `../assets/${image}`;
 
-        card.appendChild(img);
+        const back = document.createElement("img");
+        back.classList.add("card__back");
+        back.src = backImage;
+
+        card.appendChild(front);
+        card.appendChild(back);
+
         board.appendChild(card);
     });
 }
