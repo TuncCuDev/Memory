@@ -63,12 +63,12 @@ header {
     display: grid;
     gap: 20px;
     justify-content: center;
+    padding-top: 25px;
+
 
     .card {
-    width: 120px;
-    height: 120px;
-    background: white;
-    cursor: pointer;
+        background: white;
+        cursor: pointer;
     }
 }
 
@@ -80,8 +80,32 @@ header {
     grid-template-columns: repeat(6, 120px);
 }
 
-.grid-6x6 {
-    grid-template-columns: repeat(6, 120px);
+.grid-9x4 {
+    grid-template-columns: repeat(9, 120px);
 }
+
+.theme-code {
+
+    .game-board {
+
+        .card, .card img{
+            width: 120px;
+            height: 120px;
+        }
+    }
+}
+
+.theme-da {
+
+    .game-board {
+        
+        .card, .card img {
+            width: 120px;
+            height: 100px;
+        }
+    }
+}
+
+
 
 

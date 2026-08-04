@@ -90,7 +90,7 @@ function getCardCount() {
 
         case "36 cards":
             cardCount = 36;
-            board?.classList.add("grid-6x6");
+            board?.classList.add("grid-9x4");
             break;
     }
 }
