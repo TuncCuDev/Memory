@@ -68,12 +68,17 @@ function loadTheme() {
 }
 
 function setStartPlayer() {
+    const headerMiddle = document.querySelector(".header-middle");
+    if (!headerMiddle) return ;
     if (player === "Blue") {
-        console.log("Blue beginnt");
-    } else {
-        console.log("Orange beginnt");
-    }
+        headerMiddle.classList.add("blue");
+    } else { 
+        headerMiddle.classList.add("orange");
+    } 
 }
+
+setStartPlayer();
+
 
 function getCardCount() {
     const board = document.querySelector(".game-board");

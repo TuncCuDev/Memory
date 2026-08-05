@@ -36,7 +36,7 @@ header {
             }
         }
 
-          &__second {
+        &__second {
             @include mx.flex-center;
             color: rgba(245, 142, 57, 1);
             font-weight: 700;
@@ -51,12 +51,37 @@ header {
             }
         }
     }
+}
 
-    .header-middle p {
+
+.header-middle {
+    p {
         font-size: 16px;
         font-weight: 400;
+        gap: 8px;
+        display: flex;
+        justify-content: center;
+
+        &::after {
+            content: "";
+            width: 24px;
+            height: 24px;
+            background-size: 40px 40px;
+            display: inline-block;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
     }
-}
+
+    &.blue p::after {
+        background-image: url("../assets/label.svg") ;
+    }
+
+    &.orange p::after {
+        background-image: url("../assets/label2.svg");
+        }
+    }
+
 
 .game-board {
     display: grid;
@@ -177,10 +202,4 @@ header {
  
         }
     }
-
 }
-
-
-
-
-
