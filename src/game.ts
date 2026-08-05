@@ -109,11 +109,15 @@ function createBoard(cards: string[]) {
 
         const front = document.createElement("img");
         front.classList.add("card__front");
-        front.src = `../assets/${image}`;
+        front.src = `/assets/${image}`;
 
         const back = document.createElement("img");
         back.classList.add("card__back");
         back.src = backImage;
+
+        card.addEventListener("click", () => {
+        card.classList.toggle("open");
+    });
 
         card.appendChild(front);
         card.appendChild(back);
@@ -125,3 +129,4 @@ function createBoard(cards: string[]) {
 loadTheme();
 setStartPlayer();
 createBoard(cards);
+
