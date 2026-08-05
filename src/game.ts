@@ -45,17 +45,14 @@ const DAImages = [
 const theme = localStorage.getItem("theme");
 const player = localStorage.getItem("player");
 const size = localStorage.getItem("size");
-
 let cardCount = 16;
 
 getCardCount();
 
 let images = theme === "Code vibes theme" ? CodeImages : DAImages;
-
 const pairCount = cardCount / 2;
 const selectedImages = images.slice(0, pairCount);
 const cards = [...selectedImages, ...selectedImages];
-
 cards.sort(() => Math.random() - 0.5);
 
 
@@ -77,8 +74,6 @@ function setStartPlayer() {
     } 
 }
 
-setStartPlayer();
-
 
 function getCardCount() {
     const board = document.querySelector(".game-board");
@@ -87,12 +82,10 @@ function getCardCount() {
             cardCount = 16;
             board?.classList.add("grid-4x4");
             break;
-
         case "24 cards":
             cardCount = 24;
             board?.classList.add("grid-6x4");
             break;
-
         case "36 cards":
             cardCount = 36;
             board?.classList.add("grid-9x4");
@@ -106,23 +99,54 @@ function createBoard(cards: string[]) {
     if (!board) return;
 
     board.innerHTML = "";
-     const backImage = theme === "Code vibes theme" ? "/assets/A Front.svg" : "/assets/DA F.svg";
+
+    const backImage = theme === "Code vibes theme"
+        ? "/assets/A Front.svg"
+        : "/assets/DA F.svg";
+
 
     cards.forEach(image => {
+
         const card = document.createElement("div");
         card.classList.add("card");
+
+        // wichtig für Vergleich
+        card.dataset.image = image;
+
 
         const front = document.createElement("img");
         front.classList.add("card__front");
         front.src = `/assets/${image}`;
 
+
         const back = document.createElement("img");
         back.classList.add("card__back");
         back.src = backImage;
 
+
         card.addEventListener("click", () => {
-        card.classList.toggle("open");
-    });
+
+            if (lockBoard) return;
+            if (card === firstCard) return;
+
+            card.classList.add("open");
+
+
+            if (!firstCard) {
+
+                firstCard = card;
+                return;
+
+            }
+
+
+            secondCard = card;
+            lockBoard = true;
+
+            checkMatch();
+
+        });
+
 
         card.appendChild(front);
         card.appendChild(back);
@@ -130,10 +154,6 @@ function createBoard(cards: string[]) {
         board.appendChild(card);
     });
 }
-
-loadTheme();
-setStartPlayer();
-createBoard(cards);
 
 
 const exitButton = document.querySelector(".exit-button");
@@ -153,3 +173,88 @@ yesButton?.addEventListener("click", () => {
     localStorage.clear();
     window.location.href = "/index.html";
 });
+
+
+let firstCard: HTMLElement | null = null;
+let secondCard: HTMLElement | null = null;
+let lockBoard = false;
+
+let blueScore = 0;
+let orangeScore = 0;
+
+let currentPlayer = localStorage.getItem("player") || "Blue";
+
+function checkMatch() {
+
+    if (!firstCard || !secondCard) return;
+
+    const isMatch =
+        firstCard.dataset.image === secondCard.dataset.image;
+
+    if (isMatch) {
+
+        if (currentPlayer === "Blue") {
+            blueScore++;
+            document.querySelector(".header-left__first")!.textContent = `Blue ${blueScore}`;
+        } else {
+            orangeScore++;
+            document.querySelector(".header-left__second")!.textContent = `Orange ${orangeScore}`;
+        }
+
+        resetTurn();
+
+    } else {
+
+        setTimeout(() => {
+
+            firstCard!.classList.remove("open");
+            secondCard!.classList.remove("open");
+
+            switchPlayer();
+
+            resetTurn();
+
+        }, 1000);
+    }
+} 
+
+function resetTurn() {
+    firstCard = null;
+    secondCard = null;
+    lockBoard = false;
+}
+
+function switchPlayer() {
+
+    if (currentPlayer === "Blue") {
+        currentPlayer = "Orange";
+    } else {
+        currentPlayer = "Blue";
+    }
+
+    updateCurrentPlayer();
+}
+
+function updateCurrentPlayer() {
+
+    const headerMiddle = document.querySelector(".header-middle");
+
+    if (!headerMiddle) return;
+
+    headerMiddle.classList.remove("blue", "orange");
+
+
+    if (currentPlayer === "Blue") {
+
+        headerMiddle.classList.add("blue");
+
+    } else {
+
+        headerMiddle.classList.add("orange");
+
+    }
+}
+
+loadTheme();
+setStartPlayer();
+createBoard(cards);
