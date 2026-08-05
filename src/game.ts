@@ -130,3 +130,20 @@ loadTheme();
 setStartPlayer();
 createBoard(cards);
 
+
+const exitButton = document.querySelector(".exit-button");
+const dialog = document.querySelector(".dialog");
+const noButton = document.querySelector(".dialog__no");
+const yesButton = document.querySelector(".dialog__yes");
+
+exitButton?.addEventListener("click", () => {
+    dialog?.classList.remove("hidden");
+});
+
+noButton?.addEventListener("click", () => {
+    dialog?.classList.add("hidden");
+});
+
+yesButton?.addEventListener("click", () => {
+    window.location.href = "index.html";
+});

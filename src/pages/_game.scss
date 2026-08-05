@@ -119,5 +119,68 @@ header {
     height: 100%;
 }
 
+.dialog {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+    
+    @include mx.flex-center;
+
+    &.hidden {
+        display: none;
+    }
+
+    &__content {
+        font-size: 40px;
+        background: white;
+        color: black;
+        padding: 32px;
+        border-radius: 12px;
+        text-align: center;
+        width: 500px;
+        height: 225px;
+        font-family: "Orbitron", sans-serif;
+        font-weight: 700;
+    }
+
+    &__buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 24px;
+        height: 40px;
+    }
+
+    &__no {
+        border: 2px solid rgba(231, 28, 79, 1);
+        border-radius: 10px;
+        width: 200px;
+        background-color: rgba(237, 27, 118, 1);
+        color: white;
+        cursor: pointer;
+
+        &:hover {
+            color: rgba(237, 27, 118, 1);
+            background-color: white;
+        }
+    }
+
+    &__yes {
+        width: 175px;
+        border: 2px solid rgba(231, 28, 79, 1);
+        border-radius: 10px;
+        background-color: #ffc0cb7d;
+        cursor: pointer;
+    
+        &:hover {
+            border: 3px solid rgba(231, 28, 79, 1);
+ 
+        }
+    }
+
+}
+
+
+
 
 
