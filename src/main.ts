@@ -3,7 +3,6 @@ import './styles/style.scss'
 
 function makeSelectable(selector: string) {
     const items = document.querySelectorAll(selector);
-
     items.forEach(item => {
         item.addEventListener("click", () => {
             items.forEach(i => i.classList.remove("active"));
@@ -16,40 +15,65 @@ function makeSelectable(selector: string) {
 makeSelectable(".main-section__player");
 makeSelectable(".main-section__size");
 makeSelectable(".main-section__theme");
-
-
+const startButton = document.querySelector(".start-game") as HTMLButtonElement;
 const themes = document.querySelectorAll(".main-section__theme");
-const preview = document.querySelector(".theme-preview img") as HTMLImageElement;
+const players = document.querySelectorAll(".main-section__player");
+const sizes = document.querySelectorAll(".main-section__size");
+
+function checkSettings() {
+    const theme = localStorage.getItem("theme");
+    const player = localStorage.getItem("player");
+    const size = localStorage.getItem("size");
+    if (startButton) {
+        startButton.disabled = !(theme && player && size);
+    }
+}
+
 
 themes.forEach(theme => {
-    theme.addEventListener("mouseenter", () => {
-        const image = theme.getAttribute("data-image");
-
-        if (image && preview) {
-            preview.src = image;
-        }
-    });
-
     theme.addEventListener("click", () => {
-        const image = theme.getAttribute("data-image");
-
-        if (image && preview) {
-            preview.src = image;
-        }
+        themes.forEach(item => item.classList.remove("active"));
+        theme.classList.add("active");
+        localStorage.setItem(
+            "theme",
+            theme.textContent?.trim() ?? ""
+        );
+        checkSettings();
     });
+
 });
 
 
-const startButton = document.querySelector(".start-game");
+players.forEach(player => {
+
+    player.addEventListener("click", () => {
+        players.forEach(item => item.classList.remove("active"));
+        player.classList.add("active");
+        localStorage.setItem(
+            "player",
+            player.textContent?.trim() ?? ""
+        );
+        checkSettings();
+    });
+
+});
+
+
+sizes.forEach(size => {
+    size.addEventListener("click", () => {
+        sizes.forEach(item => item.classList.remove("active"));
+        size.classList.add("active");
+        localStorage.setItem(
+            "size",
+            size.textContent?.trim() ?? ""
+        );
+        checkSettings();
+    });
+});
+
 
 startButton?.addEventListener("click", () => {
-    const theme = document.querySelector(".main-section__theme.active")?.textContent?.trim();
-    const player = document.querySelector(".main-section__player.active")?.textContent?.trim();
-    const size = document.querySelector(".main-section__size.active")?.textContent?.trim();
-
-    localStorage.setItem("theme", theme ?? "");
-    localStorage.setItem("player", player ?? "");
-    localStorage.setItem("size", size ?? "");
-
     window.location.href = "game.html";
 });
+
+checkSettings();

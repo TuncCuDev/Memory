@@ -185,12 +185,6 @@
                 }
             }
 
-            p {
-                cursor: pointer;
-                margin: 0;
-                font-size: 20px;
-            }
-
             .start-game {
                 font-family: "Red Rose", sans-serif;
                 height: 50px;
@@ -202,6 +196,14 @@
                 background-color: #F0EA6E;
                 gap: 5px;
                 font-weight: bolder;
+                cursor: pointer;
+                font-size: 20px;
+                border: none;
+
+                &:disabled {
+                    opacity: 0.5;
+                    cursor: not-allowed;
+                }
             }
         }
     }
