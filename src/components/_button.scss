@@ -48,16 +48,44 @@
     }
 }
 
-.exit-button {
-    background-color: rgba(134, 233, 214, 0.3);
-    color: rgba(255, 255, 255, 1);
-    gap: 10px;
-    height: 40px;
+.theme-code {
+    .exit-button {
+        background-color: rgba(134, 233, 214, 0.3);
+        color: rgba(255, 255, 255, 1);
+        gap: 10px;
+        height: 40px;
+        width: 150px;
+        border: 3px solid rgba(77, 213, 188, 1);
+        font-family: "Red Rose", sans-serif;
+        font-size: 16px;
+        font-weight: bolder;
+        
+        @include mx.flex-center;
+    }
+}
+
+.theme-da {
+    .exit-button {
+        color: rgba(30, 117, 148, 1);
+        background-color: rgba(191, 229, 242, 1);
+        gap: 10px;
+        height: 40px;
+        width: 150px;
+        font-family: "Red Rose", sans-serif;
+        font-size: 16px;
+        font-weight: bolder;
+        border: none;
+        border-radius: 10px;
+        
+        @include mx.flex-center;
+    }
+}
+
+.restart-game {
+    height: 50px;
     width: 150px;
-    border: 3px solid rgba(77, 213, 188, 1);
-    font-family: "Red Rose", sans-serif;
-    font-size: 16px;
-    font-weight: bolder;
-    
-    @include mx.flex-center;
+    color: white;
+    font-size: 20px;
+    background-color: rgb(24, 81, 131);
+    border: 3px blue solid;
 }

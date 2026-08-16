@@ -5,82 +5,174 @@
     background-color: rgba(48, 49, 49, 1);
     font-family: "Red Rose", sans-serif;
     color: rgba(255, 255, 255, 1);
+    flex-direction: column;
+}
+
+.theme-code {
+    header {
+        background-color: #4DD5BC33;
+
+        .header-left {
+            background-color: rgba(134, 233, 214, 0.3);
+
+            &__first {
+                color: rgba(43, 177, 255, 1);
+
+                &::before {
+                    content: "";
+                    width: 24px;
+                    height: 24px;
+                    display: inline-block;
+                    background: url("../assets/label.svg") no-repeat center/contain;;
+                    margin-right: 8px;
+                }
+        
+                &__second {
+                    color: rgba(245, 142, 57, 1);
+
+                    &::before {
+                        content: "";
+                        width: 24px;
+                        height: 24px;
+                        display: inline-block;
+                        background: url("../assets/label2.svg") no-repeat center/contain;
+                        margin-right: 8px;
+                    }
+                }
+            }
+        }
+
+        .header-middle {
+            p {
+                font-size: 16px;
+                font-weight: 400;
+                gap: 8px;
+                display: flex;
+                justify-content: center;
+
+                &::after {
+                    content: "";
+                    width: 24px;
+                    height: 24px;
+                    background-size: 40px 40px;
+                    display: inline-block;
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                }
+            }
+
+            &.blue p::after {
+                background-image: url("../assets/label.svg") ;
+            }
+
+            &.orange p::after {
+                background-image: url("../assets/label2.svg");
+            }
+        }
+    }
+}
+
+.theme-da {
+    header {
+        background-color: rgba(255, 255, 255, 1);
+        border-radius: 10px;
+
+        .header-left {
+
+            &__first {
+                color: rgba(30, 117, 148, 1);
+
+                &::before {
+                    content: "";
+                    width: 24px;
+                    height: 24px;
+                    display: inline-block;
+                    background: url("../assets/chess_pawn_blue.svg") no-repeat center/contain;;
+                    margin-right: 8px;
+                }
+            }
+        
+            &__second {
+                color: rgba(245, 142, 57, 1);
+
+                &::before {
+                    content: "";
+                    width: 24px;
+                    height: 24px;
+                    display: inline-block;
+                    background: url("../assets/chess_pawn_orange.svg") no-repeat center/contain;
+                    margin-right: 8px;
+                }
+            }
+
+        }
+
+        .header-middle {
+            color: rgba(30, 117, 148, 1);
+   
+
+            &.blue p::after,
+            &.orange p::after {
+                content: "";
+                width: 24px;
+                height: 24px;
+                display: inline-block;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: contain;
+                padding-left: 10px;
+            }
+
+             &.blue p::after {
+                background-image: url("../assets/chess_pawn_blue.svg") ;
+            }
+
+            &.orange p::after {
+                background-image: url("../assets/chess_pawn_orange.svg");
+            }
+        }
+    }
+
+    .exit-button {
+        color: rgba(30, 117, 148, 1);
+    
+        img {
+            content: url("/assets/move_item_blue.svg");
+            height: 28px;
+            width: 28px;
+        }
+    }
+
 }
 
 
+
+
 header {
-    background-color: #4DD5BC33;
     @include mx.flex-space;
     margin: 25px 25px;
     height: 80px;
 
     .header-left {
         gap: 25px;
-        background-color: rgba(134, 233, 214, 0.3);
         height: 35px;
         width: 250px;
         @include mx.flex-center;
        
         &__first {
             @include mx.flex-center;
-            color: rgba(43, 177, 255, 1);
             font-weight: 700;
-
-            &::before {
-                content: "";
-                width: 24px;
-                height: 24px;
-                display: inline-block;
-                background: url("../assets/label.svg") no-repeat center/contain;;
-                margin-right: 8px;
-            }
         }
 
         &__second {
             @include mx.flex-center;
-            color: rgba(245, 142, 57, 1);
             font-weight: 700;
 
-            &::before {
-                content: "";
-                width: 24px;
-                height: 24px;
-                display: inline-block;
-                background: url("../assets/label2.svg") no-repeat center/contain;
-                margin-right: 8px;
-            }
+            
         }
     }
 }
 
-
-.header-middle {
-    p {
-        font-size: 16px;
-        font-weight: 400;
-        gap: 8px;
-        display: flex;
-        justify-content: center;
-
-        &::after {
-            content: "";
-            width: 24px;
-            height: 24px;
-            background-size: 40px 40px;
-            display: inline-block;
-            background-size: contain;
-            background-repeat: no-repeat;
-        }
-    }
-
-    &.blue p::after {
-        background-image: url("../assets/label.svg") ;
-    }
-
-    &.orange p::after {
-        background-image: url("../assets/label2.svg");
-        }
-    }
 
 
 .game-board {
@@ -125,8 +217,10 @@ header {
     grid-template-columns: repeat(6, 120px);
 }
 
-.grid-9x4 {
-    grid-template-columns: repeat(9, 120px);
+.grid-6x6 {
+    grid-template-columns: repeat(6, 120px);
+    gap: 5px;
+    padding: 20px 0px;
 }
 
 .theme-code .card {
@@ -201,5 +295,30 @@ header {
             border: 3px solid rgba(231, 28, 79, 1);
  
         }
+    }
+}
+
+.game-over {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(0,0,0,0.5);
+
+
+    &__content {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        text-align: center;
+    }
+
+
+    &.hidden {
+        display: none;
     }
 }

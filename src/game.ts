@@ -46,6 +46,7 @@ const theme = localStorage.getItem("theme");
 const player = localStorage.getItem("player");
 const size = localStorage.getItem("size");
 let cardCount = 16;
+let matchedPairs = 0;
 
 getCardCount();
 
@@ -74,7 +75,6 @@ function setStartPlayer() {
     } 
 }
 
-
 function getCardCount() {
     const board = document.querySelector(".game-board");
     switch (size) {
@@ -88,7 +88,7 @@ function getCardCount() {
             break;
         case "36 cards":
             cardCount = 36;
-            board?.classList.add("grid-9x4");
+            board?.classList.add("grid-6x6");
             break;
     }
 }
@@ -113,11 +113,9 @@ function createBoard(cards: string[]) {
         // wichtig für Vergleich
         card.dataset.image = image;
 
-
         const front = document.createElement("img");
         front.classList.add("card__front");
         front.src = `/assets/${image}`;
-
 
         const back = document.createElement("img");
         back.classList.add("card__back");
@@ -131,26 +129,17 @@ function createBoard(cards: string[]) {
 
             card.classList.add("open");
 
-
             if (!firstCard) {
-
                 firstCard = card;
                 return;
-
             }
-
-
             secondCard = card;
             lockBoard = true;
-
             checkMatch();
 
         });
-
-
         card.appendChild(front);
         card.appendChild(back);
-
         board.appendChild(card);
     });
 }
@@ -192,16 +181,18 @@ function checkMatch() {
         firstCard.dataset.image === secondCard.dataset.image;
 
     if (isMatch) {
+        matchedPairs++;
+        console.log("Gefundene Paare:", matchedPairs);
 
         if (currentPlayer === "Blue") {
             blueScore++;
-            document.querySelector(".header-left__first")!.textContent = `Blue ${blueScore}`;
         } else {
             orangeScore++;
-            document.querySelector(".header-left__second")!.textContent = `Orange ${orangeScore}`;
         }
 
+        updateScores();
         resetTurn();
+        checkGameOver();
 
     } else {
 
@@ -224,32 +215,84 @@ function resetTurn() {
     lockBoard = false;
 }
 
-function switchPlayer() {
+function checkGameOver() {
 
+    if (matchedPairs === cardCount / 2) {
+        localStorage.setItem("blueScore", blueScore.toString());
+        localStorage.setItem("orangeScore", orangeScore.toString());
+        window.location.href = "./gameover.html";
+    }
+}
+
+function showGameOver() {
+    console.log("showGameOver läuft!");
+
+    const gameOver = document.querySelector(".game-over");
+    const winnerText = document.querySelector(".winner-text");
+    const scoreText = document.querySelector(".score-text");
+
+    console.log("GameOver Element:", gameOver);
+    
+
+    if (!gameOver || !winnerText || !scoreText) return;
+    if (blueScore > orangeScore) {
+        winnerText.textContent = "Blue wins!";
+    } else if (orangeScore > blueScore) {
+        winnerText.textContent = "Orange wins!";
+    } else {
+        winnerText.textContent = "Draw!";
+    }
+    scoreText.textContent =
+        `Blue ${blueScore} : Orange ${orangeScore}`;
+    gameOver.classList.remove("hidden");
+}
+
+const restartButton = document.querySelector(".restart-game");
+
+
+restartButton?.addEventListener("click", () => {
+
+    blueScore = 0;
+    orangeScore = 0;
+    matchedPairs = 0;
+
+    location.reload();
+
+});
+
+function updateScores() {
+    const blue = document.querySelector(".header-left__first");
+    const orange = document.querySelector(".header-left__second");
+
+    if (!blue || !orange) return;
+
+    if (theme === "DA Projects theme") {
+        blue.textContent = `${blueScore}`;
+        orange.textContent = `${orangeScore}`;
+    } else {
+        blue.textContent = `Blue ${blueScore}`;
+        orange.textContent = `Orange ${orangeScore}`;
+    }
+}
+
+function switchPlayer() {
     if (currentPlayer === "Blue") {
         currentPlayer = "Orange";
     } else {
         currentPlayer = "Blue";
     }
-
     updateCurrentPlayer();
 }
 
 function updateCurrentPlayer() {
-
     const headerMiddle = document.querySelector(".header-middle");
-
     if (!headerMiddle) return;
 
     headerMiddle.classList.remove("blue", "orange");
 
-
     if (currentPlayer === "Blue") {
-
         headerMiddle.classList.add("blue");
-
     } else {
-
         headerMiddle.classList.add("orange");
 
     }
@@ -258,3 +301,4 @@ function updateCurrentPlayer() {
 loadTheme();
 setStartPlayer();
 createBoard(cards);
+updateScores();
