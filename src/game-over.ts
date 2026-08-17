@@ -2,21 +2,9 @@ import './styles/style.scss'
 
 const blueScore = Number(localStorage.getItem("blueScore")) || 0;
 const orangeScore = Number(localStorage.getItem("orangeScore")) || 0;
-const winnerText = document.querySelector(".winner-text");
 const scoreText = document.querySelector(".score-text");
-
-
-if (winnerText) {
-    if (blueScore > orangeScore) {
-        winnerText.textContent = "Blue wins!";
-    } 
-    else if (orangeScore > blueScore) {
-        winnerText.textContent = "Orange wins!";
-    } 
-    else {
-        winnerText.textContent = "Draw!";
-    }
-}
+const blueScoreElement = document.querySelector(".game-over-score__blue");
+const orangeScoreElement = document.querySelector(".game-over-score__orange");
 
 
 if (scoreText) {
@@ -24,14 +12,10 @@ if (scoreText) {
         `Blue ${blueScore} : Orange ${orangeScore}`;
 }
 
-const restartButton 
-= document.querySelector(".restart-game");
+if (blueScoreElement) {
+    blueScoreElement.textContent = `Blue ${blueScore}`;
+}
 
-restartButton?.addEventListener("click", () => {
-
-    localStorage.removeItem("blueScore");
-    localStorage.removeItem("orangeScore");
-
-    window.location.href = "/pages/settings.html";
-
-});
+if (orangeScoreElement) {
+    orangeScoreElement.textContent = `Orange ${orangeScore}`;
+}

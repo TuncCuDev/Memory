@@ -38,21 +38,21 @@
                     background: url("../assets/label.svg") no-repeat center/contain;;
                     margin-right: 8px;
                 }
+            }
         
-                &__second {
-                    color: rgba(245, 142, 57, 1);
+            &__second {
+                color: rgba(245, 142, 57, 1);
 
-                    &::before {
-                        content: "";
-                        width: 24px;
-                        height: 24px;
-                        display: inline-block;
-                        background: url("../assets/label2.svg") no-repeat center/contain;
-                        margin-right: 8px;
-                    }
+                &::before {
+                    content: "";
+                    width: 24px;
+                    height: 24px;
+                    display: inline-block;
+                    background: url("../assets/label2.svg") no-repeat center/contain;
+                    margin-right: 8px;
                 }
             }
-        }
+    }
 
         .header-middle {
             p {
@@ -129,7 +129,6 @@
         }
     }
 }
-
 
 .theme-da {
     .card {
@@ -297,7 +296,6 @@
 
 header {
     position: relative;
-  
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -309,11 +307,12 @@ header {
 
 
     .header-left {
-        gap: 25px;
+        gap: 0px;
         height: 35px;
-        width: 250px;
+        width: 225px;
         display: flex;
-       align-items: center;
+        align-items: center;
+        justify-content: space-around;
 
         &__first {
             @include mx.flex-center;
