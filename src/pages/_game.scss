@@ -2,10 +2,17 @@
 
 
 .game-page {
-    background-color: rgba(48, 49, 49, 1);
     font-family: "Red Rose", sans-serif;
-    color: rgba(255, 255, 255, 1);
+    color: white;
     flex-direction: column;
+
+    &.theme-code {
+        background-color: rgba(48, 49, 49, 1);
+    }
+
+    &.theme-da {
+        background-color: white;
+    }
 }
 
 .theme-code {
@@ -82,6 +89,7 @@
             color: black;
             width: 500px;
             height: 225px;
+            font-weight: bold;
 
         }
 
@@ -97,6 +105,7 @@
             background-color: rgba(237, 27, 118, 1);
             color: white;
             cursor: pointer;
+            font-weight: 700;
 
             &:hover {
                 color: rgba(237, 27, 118, 1);
@@ -110,6 +119,8 @@
             border-radius: 10px;
             background-color: #ffc0cb7d;
             cursor: pointer;
+            color:  rgba(237, 27, 118, 1);
+            font-weight: 700;
         
             &:hover {
                 border: 3px solid rgba(231, 28, 79, 1);
@@ -127,7 +138,7 @@
     }
     
     header {
-        background-color: rgba(255, 255, 255, 1);
+        background-color: rgba(240, 243, 244, 1);
         border-radius: 10px;
 
         .header-left {
@@ -206,10 +217,10 @@
 
     .dialog {
         &__content {
-            background: white;
+            background: rgba(240, 246, 249, 1);
             color: black;
-            width: 400px;
-            height: 200px;
+            width: 375px;
+            height: 175px;
             font-family: "Figtree", sans-serif;
             font-size: 26px;
         }
@@ -286,16 +297,24 @@
 
 header {
     position: relative;
-    @include mx.flex-space;
-    margin: 25px 25px;
+  
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 25px auto;
+    padding: 0 25px;
+    width: calc(100% - 50px);
     height: 80px;
+    width: 1200px;
+
 
     .header-left {
         gap: 25px;
         height: 35px;
         width: 250px;
-        @include mx.flex-center;
-       
+        display: flex;
+       align-items: center;
+
         &__first {
             @include mx.flex-center;
             font-weight: 700;
@@ -316,13 +335,16 @@ header {
             margin: 0;
         }
     }
+
+    .header-right {
+        margin-left: auto;
+    }
 }
 
 .game-board {
     display: grid;
-    gap: 20px;
+    gap: 5px;
     justify-content: center;
-    padding-top: 25px;
     }
 
 .card {
