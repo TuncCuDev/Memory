@@ -284,6 +284,24 @@ function switchPlayer() {
     updateCurrentPlayer();
 }
 
+function setDialogText() {
+    const noButton = document.querySelector(".dialog__no");
+    const yesButton = document.querySelector(".dialog__yes");
+    const dialogText = document.querySelector(".dialog__text");
+
+    if (!noButton || !yesButton || !dialogText) return;
+    if (theme === "Code vibes theme") {
+        noButton.textContent = "No, back to game";
+        yesButton.textContent = "Yes, quit game";
+        dialogText.textContent = "Are you sure you want to quit the game?"
+    }
+    else if (theme === "DA Projects theme") {
+        noButton.textContent = "Back to game";
+        yesButton.textContent = "Exit game";
+        dialogText.innerHTML = "Are you sure you want to<br>quit the game?"
+    }
+}
+
 function updateCurrentPlayer() {
     const headerMiddle = document.querySelector(".header-middle");
     if (!headerMiddle) return;
@@ -302,3 +320,4 @@ loadTheme();
 setStartPlayer();
 createBoard(cards);
 updateScores();
+setDialogText();
