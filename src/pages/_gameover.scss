@@ -242,6 +242,7 @@
 
 .next-page.visible {
     @include mx.flex-center;
+    animation: pageFadeIn 1s ease forwards;
 }
 
 .next-page {
@@ -273,5 +274,17 @@
     .winner-name {
         margin-block-start: 0em;
         margin-block-end: 0em;
+    }
+}
+
+@keyframes pageFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
