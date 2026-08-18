@@ -20,7 +20,7 @@ const CodeImages = [
     "A (16).svg",
     "A (17).svg",
     "A (18).svg",
-]
+];
 
 const DAImages = [
     "DA  (1).svg",
@@ -40,24 +40,48 @@ const DAImages = [
     "DA  (16).svg",
     "DA  (17).svg",
     "DA  (18).svg",
-]
+];
+
+
+let cardCount = 16;
+let matchedPairs = 0;
+
+let blueScore = 0;
+let orangeScore = 0;
+
+let firstCard: HTMLElement | null = null;
+let secondCard: HTMLElement | null = null;
+let lockBoard = false;
 
 const theme = localStorage.getItem("theme");
 const player = localStorage.getItem("player");
 const size = localStorage.getItem("size");
-let cardCount = 16;
-let matchedPairs = 0;
+
+let currentPlayer = localStorage.getItem("player") || "Blue";
+
+const exitButton = document.querySelector(".exit-button");
+const dialog = document.querySelector(".dialog");
+const noButton = document.querySelector(".dialog__no");
+const yesButton = document.querySelector(".dialog__yes");
+const restartButton = document.querySelector(".restart-game");
 
 getCardCount();
+loadTheme();
+setStartPlayer();
 
 let images = theme === "Code vibes theme" ? CodeImages : DAImages;
+
 const pairCount = cardCount / 2;
 const selectedImages = images.slice(0, pairCount);
 const cards = [...selectedImages, ...selectedImages];
 cards.sort(() => Math.random() - 0.5);
 
+createBoard(cards);
+updateScores();
+setDialogText();
 
-function loadTheme() {
+
+function loadTheme():void {
     if (theme === "Code vibes theme") {
         document.body.classList.add("theme-code");
     } else if (theme === "DA Projects theme") {
@@ -65,9 +89,9 @@ function loadTheme() {
     }
 }
 
-function setStartPlayer() {
+function setStartPlayer():void {
     const headerMiddle = document.querySelector(".header-middle");
-    if (!headerMiddle) return ;
+    if (!headerMiddle) return;
     if (player === "Blue") {
         headerMiddle.classList.add("blue");
     } else { 
@@ -75,7 +99,7 @@ function setStartPlayer() {
     } 
 }
 
-function getCardCount() {
+function getCardCount():void {
     const board = document.querySelector(".game-board");
     switch (size) {
         case "16 cards":
@@ -97,20 +121,15 @@ function createBoard(cards: string[]) {
     const board = document.querySelector(".game-board");
 
     if (!board) return;
-
     board.innerHTML = "";
-
     const backImage = theme === "Code vibes theme"
         ? "/assets/A Front.svg"
         : "/assets/DA F.svg";
 
-
     cards.forEach(image => {
-
         const card = document.createElement("div");
         card.classList.add("card");
 
-        // wichtig für Vergleich
         card.dataset.image = image;
 
         const front = document.createElement("img");
@@ -120,8 +139,6 @@ function createBoard(cards: string[]) {
         const back = document.createElement("img");
         back.classList.add("card__back");
         back.src = backImage;
-
-
         card.addEventListener("click", () => {
 
             if (lockBoard) return;
@@ -136,19 +153,12 @@ function createBoard(cards: string[]) {
             secondCard = card;
             lockBoard = true;
             checkMatch();
-
         });
         card.appendChild(front);
         card.appendChild(back);
         board.appendChild(card);
     });
 }
-
-
-const exitButton = document.querySelector(".exit-button");
-const dialog = document.querySelector(".dialog");
-const noButton = document.querySelector(".dialog__no");
-const yesButton = document.querySelector(".dialog__yes");
 
 exitButton?.addEventListener("click", () => {
     dialog?.classList.remove("hidden");
@@ -163,48 +173,27 @@ yesButton?.addEventListener("click", () => {
     window.location.href = "/index.html";
 });
 
-
-let firstCard: HTMLElement | null = null;
-let secondCard: HTMLElement | null = null;
-let lockBoard = false;
-
-let blueScore = 0;
-let orangeScore = 0;
-
-let currentPlayer = localStorage.getItem("player") || "Blue";
-
 function checkMatch() {
 
     if (!firstCard || !secondCard) return;
-
     const isMatch =
         firstCard.dataset.image === secondCard.dataset.image;
-
     if (isMatch) {
         matchedPairs++;
-        console.log("Gefundene Paare:", matchedPairs);
-
         if (currentPlayer === "Blue") {
             blueScore++;
         } else {
             orangeScore++;
         }
-
         updateScores();
         resetTurn();
         checkGameOver();
-
     } else {
-
         setTimeout(() => {
-
             firstCard!.classList.remove("open");
             secondCard!.classList.remove("open");
-
             switchPlayer();
-
             resetTurn();
-
         }, 1000);
     }
 } 
@@ -224,17 +213,13 @@ function checkGameOver() {
         window.location.href = "./gameover.html";
     }
 }
-const restartButton = document.querySelector(".restart-game");
 
 
 restartButton?.addEventListener("click", () => {
-
     blueScore = 0;
     orangeScore = 0;
     matchedPairs = 0;
-
     location.reload();
-
 });
 
 function updateScores() {
@@ -292,9 +277,3 @@ function updateCurrentPlayer() {
 
     }
 }
-
-loadTheme();
-setStartPlayer();
-createBoard(cards);
-updateScores();
-setDialogText();

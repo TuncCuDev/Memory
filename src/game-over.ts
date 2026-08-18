@@ -40,7 +40,6 @@ if (theme === "Code vibes theme") {
     }
 }
 
-
 if (blueScore > orangeScore) {
     winnerName.classList.add("blue-winner");
     if (theme === "Code vibes theme") {
@@ -72,7 +71,6 @@ if (blueScore > orangeScore) {
         winnerName.innerHTML = `<img class="draw-image" src="/assets/DRAW_da.svg" alt="Draw">`;
          winnerImage.src = "/assets/icon_red.svg";
     }
-   
     winnerImage.alt = "Draw";
 }
 

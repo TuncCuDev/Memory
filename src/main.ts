@@ -4,6 +4,10 @@ let selectedTheme = "";
 let selectedPlayer = "";
 let selectedSize = "";
 
+makeSelectable(".main-section__player");
+makeSelectable(".main-section__size");
+makeSelectable(".main-section__theme");
+
 const startButton = document.querySelector(".start-game") as HTMLButtonElement;
 
 const themes = document.querySelectorAll(".main-section__theme");
@@ -17,7 +21,6 @@ const menuSize = document.querySelector(".menu-size");
 
 function makeSelectable(selector: string) {
     const items = document.querySelectorAll(selector);
-    
     items.forEach(item => {
         item.addEventListener("click", () => {
             items.forEach(i => i.classList.remove("active"));
@@ -26,17 +29,9 @@ function makeSelectable(selector: string) {
     });
 }
 
-makeSelectable(".main-section__player");
-makeSelectable(".main-section__size");
-makeSelectable(".main-section__theme");
-
-function checkSettings() {
+function checkSettings():void {
     if (startButton) {
-        startButton.disabled = !(
-            selectedTheme &&
-            selectedPlayer &&
-            selectedSize
-        );
+        startButton.disabled = !(selectedTheme && selectedPlayer && selectedSize);
     }
 }
 
