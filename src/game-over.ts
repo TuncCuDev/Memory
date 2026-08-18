@@ -63,10 +63,16 @@ if (blueScore > orangeScore) {
     }
     winnerImage.alt = "Orange Winner";
 } else {
-    nextPage?.classList.add("draw-screen");
     winnerTitle.textContent = "It's a";
-    winnerName.innerHTML = `<img class="draw-image" src="/assets/DRAW_green.svg" alt="Draw">`;
-    winnerImage.src = "/assets/Scale_Icon.svg";
+    nextPage?.classList.add("draw-screen");
+    if (theme === "Code vibes theme") {
+        winnerName.innerHTML = `<img class="draw-image" src="/assets/DRAW_green.svg" alt="Draw">`;
+        winnerImage.src = "/assets/Scale_Icon.svg";
+    } else {
+        winnerName.innerHTML = `<img class="draw-image" src="/assets/DRAW_da.svg" alt="Draw">`;
+         winnerImage.src = "/assets/icon_red.svg";
+    }
+   
     winnerImage.alt = "Draw";
 }
 
@@ -80,9 +86,7 @@ setTimeout(() => {
     }
 
     nextPage?.classList.add("visible");
-}, 5000);
-
-
+}, 3000);
 
 backToStartButton?.addEventListener("click", () => {
     window.location.href = "/settings.html";
