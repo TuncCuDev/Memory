@@ -220,6 +220,7 @@
 .game-over-main {
     @include mx.flex-center;
     flex-direction: column;
+    overflow: hidden;
 
     .final-info {
         color: white;

@@ -4,6 +4,7 @@
     background-color: rgba(48, 49, 49, 1);
     color: white;
     @include mx.flex-center;
+    overflow: hidden;
 
     h1 {
         font-size: 48px;

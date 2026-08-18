@@ -5,6 +5,7 @@
     font-family: "Red Rose", sans-serif;
     color: white;
     flex-direction: column;
+    overflow: hidden;
 
     &.theme-code {
         background-color: rgba(48, 49, 49, 1);
