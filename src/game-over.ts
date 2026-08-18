@@ -5,34 +5,62 @@ const orangeScore = Number(localStorage.getItem("orangeScore")) || 0;
 const blueScoreElement = document.querySelector(".game-over-score__blue");
 const orangeScoreElement = document.querySelector(".game-over-score__orange");
 
-if (blueScoreElement) {
-    blueScoreElement.textContent = `Blue ${blueScore}`;
-}
-
-if (orangeScoreElement) {
-    orangeScoreElement.textContent = `Orange ${orangeScore}`;
-}
-
 const gameOverPage = document.querySelector(".game-over-page");
 const finalInfo = document.querySelector(".final-info");
 const gameOverScore = document.querySelector(".game-over-score");
 const nextPage = document.querySelector(".next-page");
+const gameOverPg = document.querySelector(".game-over-pg")
 
 const winnerName = document.querySelector(".winner-name") as HTMLElement;
 const winnerImage = document.querySelector(".winner-image") as HTMLImageElement;
 const winnerTitle = document.querySelector(".winner-title") as HTMLElement;
 const confetti = document.querySelector(".confetti") as HTMLImageElement;
 
+const backToStartButton = document.querySelector(".back-to-start");
+const theme = localStorage.getItem("theme");
+
+
+if (theme === "Code vibes theme") {
+    document.body.classList.add("theme-code");
+    backToStartButton!.textContent = "Back to start";
+    if (blueScoreElement) {
+    blueScoreElement.textContent = `Blue ${blueScore}`;
+    }
+    if (orangeScoreElement) {
+        orangeScoreElement.textContent = `Orange ${orangeScore}`;
+    }
+} else {
+    document.body.classList.add("theme-da");
+    backToStartButton!.textContent = "Home";
+    if (blueScoreElement) {
+    blueScoreElement.textContent = `${blueScore}`;
+    }
+    if (orangeScoreElement) {
+        orangeScoreElement.textContent = `${orangeScore}`;
+    }
+}
+
 
 if (blueScore > orangeScore) {
-    winnerName.textContent = "BLUE PLAYER";
     winnerName.classList.add("blue-winner");
+    if (theme === "Code vibes theme") {
+        winnerName.textContent = "BLUE PLAYER";
+        winnerImage.src = "/assets/chess_pawn_blue_go.svg";
+    } else {
+        winnerName.textContent = "Blue Player";
+        winnerImage.src = "/assets/chess_pawn_bl.svg";
+    }
     winnerImage.src = "/assets/chess_pawn_blue_go.svg";
     winnerImage.alt = "Blue Winner";
 } else if (orangeScore > blueScore) {
-    winnerName.textContent = "ORANGE PLAYER";
     winnerName.classList.add("orange-winner");
-    winnerImage.src = "/assets/chess_pawn_orange_go.svg";
+    if (theme === "Code vibes theme") {
+        winnerName.textContent = "ORANGE PLAYER";
+        winnerImage.src = "/assets/chess_pawn_orange_go.svg";
+    } else {
+        winnerName.textContent = "Orange Player";
+        winnerImage.src = "/assets/chess_pawn_or.svg";
+    }
     winnerImage.alt = "Orange Winner";
 } else {
     nextPage?.classList.add("draw-screen");
@@ -44,6 +72,7 @@ if (blueScore > orangeScore) {
 
 setTimeout(() => {
     gameOverPage?.classList.add("hidden");
+    gameOverPg?.classList.add("hidden");
     finalInfo?.classList.add("hidden");
     gameOverScore?.classList.add("hidden");
      if (blueScore === orangeScore) {
@@ -53,7 +82,7 @@ setTimeout(() => {
     nextPage?.classList.add("visible");
 }, 5000);
 
-const backToStartButton = document.querySelector(".back-to-start");
+
 
 backToStartButton?.addEventListener("click", () => {
     window.location.href = "/settings.html";

@@ -1,8 +1,6 @@
 @use '../abstract/mixin' as mx;
 
 .game-over-main {
-    font-family: "Red Rose", sans-serif;
-    background-color: rgba(48, 49, 49, 1);
     @include mx.flex-center;
     flex-direction: column;
 
@@ -17,30 +15,93 @@
     }
 }
 
-.game-over-score {
-    position: relative;
-    background-color: rgba(134, 233, 214, 0.2);
-    width: 250px;
-    gap: 30px;
-    @include mx.flex-center;
-    font-weight: 700;
+.game-over-main.theme-code {
+    font-family: "Red Rose", sans-serif;
+    background-color: rgba(48, 49, 49, 1);
 
-    p {
-        @include mx.flex-center;
-        gap: 15px;
+    .game-over-score__blue {
+        order: 1;
     }
 
-    &__blue {
-        color: rgba(43, 177, 255, 1);
+    .game-over-score__orange {
+        order: 2;
+    }
 
-        &::before {
-            content: "";
-            width: 24px;
-            height: 24px;
+    .confetti {
+    width: 100%;
+    height: auto;
+    display: block;
+    }
+
+    .winner-name {
+    font-size: 50px;
+    font-weight: 700;
+    }
+
+    .blue-winner {
+        color: blue;
+    }
+
+    .orange-winner {
+        color: orange;
+        margin-block-start: 10px;
+        margin-block-end: 10px;
+    }
+
+    .winner-image {
+        height: 180px;
+        width: 180px;
+        padding-top: 30px;
+        padding-bottom: 50px;
+    }
+
+    .back-to-start {
+        @include mx.flex-center;
+        height: 40px;
+        width: 160px;
+        background-color: rgba(134, 233, 214, 0.2);
+        border: 1px solid rgba(77, 213, 188, 1);
+        color: white;
+        font-weight: 700;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .game-over-page {
+        padding-bottom: 75px;
+    
+        span {
             display: inline-block;
-            background: url("../assets/label.svg") no-repeat center / contain;
+            width: 40px;
         }
     }
+
+    .game-over-pageda {
+        display: none;
+    }
+
+    .game-over-score {
+        position: relative;
+        background-color: rgba(134, 233, 214, 0.2);
+        width: 250px;
+        font-weight: 700;
+
+        p {
+            @include mx.flex-center;
+            gap: 15px;
+        }
+
+        &__blue {
+            color: rgba(43, 177, 255, 1);
+
+            &::before {
+                content: "";
+                width: 24px;
+                height: 24px;
+                display: inline-block;
+                background: url("../assets/label.svg") no-repeat center / contain;
+            }
+        }
 
         &__orange {
             color: rgba(245, 142, 57, 1);
@@ -52,20 +113,120 @@
             height: 24px;
             display: inline-block;
             background: url("../assets/label2.svg") no-repeat center / contain;
+            }
         }
     }
 }
 
-.game-over-page {
-    padding-bottom: 75px;
-  
+.game-over-main.theme-da {
+    font-family: "Figtree", sans-serif;
+    background-color: rgba(30, 117, 148, 1);
 
-    span {
-        display: inline-block;
-        width: 40px;
+    .game-over-score__orange {
+        order: 1;
+    }
+
+    .game-over-score__blue {
+        order: 2;
+    }
+
+    .next-page {
+        color: white;
+    }
+
+    .back-to-start {
+        background-color: rgba(191, 229, 242, 1);
+        border-radius: 10px;
+        height: 50px;
+        width: 100px;
+        border: none;
+        color: rgba(30, 117, 148, 1);
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .game-over-page {
+        display: none;
+    }
+
+    .game-over-pageda {
+        padding-bottom: 25px;
+    }
+
+    .game-over-pg {
+        font-size: 100px;
+        color: rgba(253, 91, 79, 1);
+        font-weight: 800;
+        margin-block-start: 0em;
+        margin-block-end: 0em;
+        padding-bottom: 25px;
+    }
+
+    .confetti {
+        display: none;
+    }
+    
+    .winner-name {
+        font-weight: 700;
+        font-size: 80px;
+        margin-block-start: 0em;
+        margin-block-end: 0em;
+        padding-bottom: 40px;
+    }
+
+    .winner-image {
+        padding-bottom: 50px;
+    }
+    
+    .final-info {
+        font-size: 35px;
+        margin-block-end: 20px;
+    }
+
+    .game-over-score {
+        position: relative;
+        background-color: rgba(255, 255, 255, 1);
+        width: 200px;
+        height: 70px;
+        font-weight: 700;
+        border-radius: 10px;
+
+        p {
+            @include mx.flex-center;
+            font-size: 30px;
+            gap: 4px;
+        }
+
+        &__orange {
+            color: rgba(245, 142, 57, 1);
+
+            &::before {
+            content: "";
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+            background: url("../assets/chess_pn_oree.svg") no-repeat center / contain;
+            }
+        }
+
+        &__blue {
+            color: rgba(43, 177, 255, 1);
+
+            &::before {
+                content: "";
+                width: 24px;
+                height: 24px;
+                display: inline-block;
+                background: url("../assets/chess_pn_bluee.svg") no-repeat center / contain;
+            }
+        }
     }
 }
 
+.game-over-score {
+    gap: 30px;
+    @include mx.flex-center;
+}
 
 .hidden {
     display: none;
@@ -76,11 +237,10 @@
 }
 
 .next-page.visible {
-    display: flex;
+    @include mx.flex-center;
 }
 
 .next-page {
-    font-family: "Red Rose", sans-serif;
     width: 100%;
     height: 100vh;
     flex-direction: column;
@@ -88,23 +248,7 @@
     justify-content: flex-start;
 }
 
-.back-to-start {
-    @include mx.flex-center;
-    height: 40px;
-    width: 160px;
-    background-color: rgba(134, 233, 214, 0.2);
-    border: 1px solid rgba(77, 213, 188, 1);
-    color: white;
-    font-weight: 700;
-    font-size: 14px;
-    cursor: pointer;
-}
 
-.confetti {
-    width: 100%;
-    height: auto;
-    display: block;
-}
 
 .winner-title {
     color: rgba(255, 255, 255, 1);
@@ -113,32 +257,13 @@
     margin-block-end: 0em;
 }
 
-.winner-image {
-    height: 180px;
-    width: 180px;
-    padding-top: 30px;
-    padding-bottom: 50px;
-}
 
-.winner-name {
-    font-size: 50px;
-    font-weight: 700;
-}
 
-.blue-winner {
-    color: blue;
-}
-
-.orange-winner {
-    color: orange;
-    margin-block-start: 10px;
-    margin-block-end: 10px;
-}
 
 .draw-screen {
     @include mx.flex-center;
     display: none;
-    
+
     .winner-image {
         padding-top: 0px;
     }
