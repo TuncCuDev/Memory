@@ -208,3 +208,32 @@
         }
     }
 }
+
+.menu-theme,
+.menu-player,
+.menu-size {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.menu-theme.updated,
+.menu-player.updated,
+.menu-size.updated {
+    animation: menuUpdate 0.4s ease;
+}
+
+@keyframes menuUpdate {
+    0% {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateY(3px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
