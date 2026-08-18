@@ -209,7 +209,7 @@ function checkGameOver() {
     if (matchedPairs === cardCount / 2) {
         localStorage.setItem("blueScore", blueScore.toString());
         localStorage.setItem("orangeScore", orangeScore.toString());
-        localStorage.setItem("theme", theme);
+        localStorage.setItem("theme", theme!);
         window.location.href = "./gameover.html";
     }
 }
