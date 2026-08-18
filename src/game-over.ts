@@ -44,32 +44,32 @@ if (blueScore > orangeScore) {
     winnerName.classList.add("blue-winner");
     if (theme === "Code vibes theme") {
         winnerName.textContent = "BLUE PLAYER";
-        winnerImage.src = "/assets/chess_pawn_blue_go.svg";
+        winnerImage.src = "../assets/chess_pawn_blue_go.svg";
     } else {
         winnerName.textContent = "Blue Player";
-        winnerImage.src = "/assets/chess_pawn_bl.svg";
+        winnerImage.src = "../assets/chess_pawn_bl.svg";
     }
-    winnerImage.src = "/assets/chess_pawn_blue_go.svg";
+    winnerImage.src = "../assets/chess_pawn_blue_go.svg";
     winnerImage.alt = "Blue Winner";
 } else if (orangeScore > blueScore) {
     winnerName.classList.add("orange-winner");
     if (theme === "Code vibes theme") {
         winnerName.textContent = "ORANGE PLAYER";
-        winnerImage.src = "/assets/chess_pawn_orange_go.svg";
+        winnerImage.src = "../assets/chess_pawn_orange_go.svg";
     } else {
         winnerName.textContent = "Orange Player";
-        winnerImage.src = "/assets/chess_pawn_or.svg";
+        winnerImage.src = "../assets/chess_pawn_or.svg";
     }
     winnerImage.alt = "Orange Winner";
 } else {
     winnerTitle.textContent = "It's a";
     nextPage?.classList.add("draw-screen");
     if (theme === "Code vibes theme") {
-        winnerName.innerHTML = `<img class="draw-image" src="/assets/DRAW_green.svg" alt="Draw">`;
-        winnerImage.src = "/assets/Scale_Icon.svg";
+        winnerName.innerHTML = `<img class="draw-image" src="../assets/DRAW_green.svg" alt="Draw">`;
+        winnerImage.src = "../assets/Scale_Icon.svg";
     } else {
-        winnerName.innerHTML = `<img class="draw-image" src="/assets/DRAW_da.svg" alt="Draw">`;
-         winnerImage.src = "/assets/icon_red.svg";
+        winnerName.innerHTML = `<img class="draw-image" src="../assets/DRAW_da.svg" alt="Draw">`;
+         winnerImage.src = "../assets/icon_red.svg";
     }
     winnerImage.alt = "Draw";
 }
@@ -87,5 +87,5 @@ setTimeout(() => {
 }, 3000);
 
 backToStartButton?.addEventListener("click", () => {
-    window.location.href = "/settings.html";
+    window.location.href = "./settings.html";
 });

@@ -123,8 +123,8 @@ function createBoard(cards: string[]) {
     if (!board) return;
     board.innerHTML = "";
     const backImage = theme === "Code vibes theme"
-        ? "/assets/A Front.svg"
-        : "/assets/DA F.svg";
+        ? "../assets/A Front.svg"
+        : "../assets/DA F.svg";
 
     cards.forEach(image => {
         const card = document.createElement("div");
@@ -134,7 +134,7 @@ function createBoard(cards: string[]) {
 
         const front = document.createElement("img");
         front.classList.add("card__front");
-        front.src = `/assets/${image}`;
+        front.src = `../assets/${image}`;
 
         const back = document.createElement("img");
         back.classList.add("card__back");
@@ -170,7 +170,7 @@ noButton?.addEventListener("click", () => {
 
 yesButton?.addEventListener("click", () => {
     localStorage.clear();
-    window.location.href = "/index.html";
+    window.location.href = "../index.html";
 });
 
 function checkMatch() {
