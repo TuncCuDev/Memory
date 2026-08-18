@@ -35,6 +35,7 @@ const DAImages = [
     "DA  (10).svg",
     "DA  (11).svg",
     "DA  (12).svg",
+    "DA  (13).svg",
     "DA  (14).svg",
     "DA  (15).svg",
     "DA  (16).svg",
