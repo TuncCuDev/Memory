@@ -224,30 +224,6 @@ function checkGameOver() {
         window.location.href = "./gameover.html";
     }
 }
-
-function showGameOver() {
-    console.log("showGameOver läuft!");
-
-    const gameOver = document.querySelector(".game-over");
-    const winnerText = document.querySelector(".winner-text");
-    const scoreText = document.querySelector(".score-text");
-
-    console.log("GameOver Element:", gameOver);
-    
-
-    if (!gameOver || !winnerText || !scoreText) return;
-    if (blueScore > orangeScore) {
-        winnerText.textContent = "Blue wins!";
-    } else if (orangeScore > blueScore) {
-        winnerText.textContent = "Orange wins!";
-    } else {
-        winnerText.textContent = "Draw!";
-    }
-    scoreText.textContent =
-        `Blue ${blueScore} : Orange ${orangeScore}`;
-    gameOver.classList.remove("hidden");
-}
-
 const restartButton = document.querySelector(".restart-game");
 
 
