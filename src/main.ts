@@ -18,6 +18,9 @@ const menuTheme = document.querySelector(".menu-theme");
 const menuPlayer = document.querySelector(".menu-player");
 const menuSize = document.querySelector(".menu-size");
 
+const previewImage = document.querySelector<HTMLImageElement>(
+    "#theme-preview-image"
+);
 
 function makeSelectable(selector: string) {
     const items = document.querySelectorAll(selector);
@@ -37,7 +40,6 @@ function checkSettings():void {
 
 function updateMenuItem(element: Element | null, text: string) {
     if (!element) return;
-
     element.textContent = text;
     element.classList.remove("updated");
     void (element as HTMLElement).offsetWidth;
@@ -45,16 +47,33 @@ function updateMenuItem(element: Element | null, text: string) {
 }
 
 themes.forEach(theme => {
+    theme.addEventListener("mouseenter", () => {
+        const image = theme.dataset.image;
+        if (image && previewImage) {
+            previewImage.src = image;
+        }
+    });
+
+    theme.addEventListener("mouseleave", () => {
+        const activeTheme = document.querySelector<HTMLElement>(
+            ".main-section__theme.active"
+        );
+        const image = activeTheme?.dataset.image;
+        if (image && previewImage) {
+            previewImage.src = image;
+        }
+    });
+
     theme.addEventListener("click", () => {
         themes.forEach(item => item.classList.remove("active"));
         theme.classList.add("active");
-
         selectedTheme = theme.textContent?.trim() ?? "";
-
+        const image = theme.dataset.image;
+        if (image && previewImage) {
+            previewImage.src = image;
+        }
         localStorage.setItem("theme", selectedTheme);
-
         updateMenuItem(menuTheme, selectedTheme);
-
         checkSettings();
     });
 });
@@ -63,13 +82,9 @@ players.forEach(player => {
     player.addEventListener("click", () => {
         players.forEach(item => item.classList.remove("active"));
         player.classList.add("active");
-
         selectedPlayer = player.textContent?.trim() ?? "";
-
         localStorage.setItem("player", selectedPlayer);
-
         updateMenuItem(menuPlayer, selectedPlayer);
-
         checkSettings();
     });
 });
@@ -78,13 +93,9 @@ sizes.forEach(size => {
     size.addEventListener("click", () => {
         sizes.forEach(item => item.classList.remove("active"));
         size.classList.add("active");
-
         selectedSize = size.textContent?.trim() ?? "";
-
         localStorage.setItem("size", selectedSize);
-
         updateMenuItem(menuSize, selectedSize);
-
         checkSettings();
     });
 });
@@ -92,5 +103,4 @@ sizes.forEach(size => {
 startButton?.addEventListener("click", () => {
     window.location.href = "./game.html";
 });
-
 checkSettings();
