@@ -48,13 +48,13 @@
             gap: 10px;
 
             img {
-                display: none;
+                visibility: hidden;
                 width: 50px; 
                 height: 20px; 
             }
 
             &.active img, &:hover img {
-                display: block;
+                visibility: visible;;
             }
 
             &::before {
@@ -71,7 +71,7 @@
             }
 
             &:hover, &.active {
-                font-weight: bolder;
+                font-weight: 700;
             }
 
             &:hover::before, &.active::before {
@@ -104,13 +104,13 @@
         gap: 10px;
 
         img {
-            display: none;
+            visibility: hidden;
             width: 50px; 
             height: 20px; 
         }
 
         &.active img {
-            display: block;
+            visibility: hidden;
         }
 
         &::before {
@@ -142,7 +142,14 @@
     }
 }
 
+.settings-left {
+    width: 400px;
+    flex-shrink: 0;
+}
+
 .settings-right {
+    width: 500px;
+    flex-shrink: 0;
     display: flex;
     flex-direction: column;
     align-items: flex-end;

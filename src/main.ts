@@ -10,7 +10,7 @@ makeSelectable(".main-section__theme");
 
 const startButton = document.querySelector(".start-game") as HTMLButtonElement;
 
-const themes = document.querySelectorAll(".main-section__theme");
+const themes = document.querySelectorAll<HTMLElement>(".main-section__theme");
 const players = document.querySelectorAll(".main-section__player");
 const sizes = document.querySelectorAll(".main-section__size");
 
