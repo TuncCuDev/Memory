@@ -79,7 +79,7 @@ setTimeout(() => {
     gameOverPg?.classList.add("hidden");
     finalInfo?.classList.add("hidden");
     gameOverScore?.classList.add("hidden");
-     if (blueScore === orangeScore) {
+    if (blueScore === orangeScore) {
         confetti.style.display = "none";
     }
 
