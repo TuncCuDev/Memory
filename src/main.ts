@@ -23,9 +23,15 @@ const previewImage = document.querySelector<HTMLImageElement>(
 );
 
 function loadSavedSettings(): void {
+    const returnFromGame = sessionStorage.getItem("returnFromGame");
+    if (returnFromGame !== "true") {
+        clearSettings();
+        return;
+    }
     loadTheme();
     loadPlayer();
     loadSize();
+    sessionStorage.removeItem("returnFromGame");
     checkSettings();
 }
 
@@ -85,6 +91,16 @@ function checkSettings():void {
     if (startButton) {
         startButton.disabled = !(selectedTheme && selectedPlayer && selectedSize);
     }
+}
+
+function clearSettings(): void {
+    selectedTheme = "";
+    selectedPlayer = "";
+    selectedSize = "";
+    themes.forEach(item => item.classList.remove("active"));
+    players.forEach(item => item.classList.remove("active"));
+    sizes.forEach(item => item.classList.remove("active"));
+    checkSettings();
 }
 
 function updateMenuItem(element: Element | null, text: string) {
