@@ -109,8 +109,8 @@
             height: 20px; 
         }
 
-        &.active img {
-            visibility: hidden;
+        &.active img, &:hover img {
+            visibility: visible;
         }
 
         &::before {
@@ -126,17 +126,17 @@
             margin-left: 40px;
         }
 
-        &.active::before {
+        &.active::before, &:hover::before {
             box-shadow: inset 0 0 0 3px #fff,
                         inset 0 0 0 6px #000;
         }
 
-        &.active::after {
+        &.active::after, &:hover::after {
             opacity: 1;
             visibility: visible;
         }
 
-        &.active {
+        &.active &:hover {
             font-weight: bolder;
         }
     }
@@ -219,7 +219,7 @@
                 }
 
                 &:hover:not(:disabled) {
-                        transform: scale(1.1);
+                    transform: scale(1.1);
                 }
 
                  img {
