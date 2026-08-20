@@ -18,59 +18,42 @@ const confetti = document.querySelector(".confetti") as HTMLImageElement;
 
 const backToStartButton = document.querySelector(".back-to-start");
 const theme = localStorage.getItem("theme");
+const isCodeTheme = theme === "Code vibes theme";
 
+document.body.classList.add(isCodeTheme ? "theme-code" : "theme-da");
 
-if (theme === "Code vibes theme") {
-    document.body.classList.add("theme-code");
-    backToStartButton!.textContent = "Back to start";
-    if (blueScoreElement) {
-    blueScoreElement.textContent = `Blue ${blueScore}`;
-    }
-    if (orangeScoreElement) {
-        orangeScoreElement.textContent = `Orange ${orangeScore}`;
-    }
-} else {
-    document.body.classList.add("theme-da");
-    backToStartButton!.textContent = "Home";
-    if (blueScoreElement) {
-    blueScoreElement.textContent = `${blueScore}`;
-    }
-    if (orangeScoreElement) {
-        orangeScoreElement.textContent = `${orangeScore}`;
-    }
+if (backToStartButton) {
+    backToStartButton.textContent = isCodeTheme ? "Back to start" : "Home";
+}
+
+if (blueScoreElement) {
+    blueScoreElement.textContent = isCodeTheme ? `Blue ${blueScore}` : `${blueScore}`;
+}
+
+if (orangeScoreElement) {
+    orangeScoreElement.textContent = isCodeTheme ? `Orange ${orangeScore}` : `${orangeScore}`;
 }
 
 if (blueScore > orangeScore) {
     winnerName.classList.add("blue-winner");
-    if (theme === "Code vibes theme") {
-        winnerName.textContent = "BLUE PLAYER";
-        winnerImage.src = "../assets/chess_pawn_blue_go.svg";
-    } else {
-        winnerName.textContent = "Blue Player";
-        winnerImage.src = "../assets/chess_pawn_bl.svg";
-    }
-    winnerImage.src = "../assets/chess_pawn_blue_go.svg";
+    winnerName.textContent = isCodeTheme ? "BLUE PLAYER" : "Blue Player";
+    winnerImage.src = isCodeTheme ? "../assets/chess_pawn_blue_go.svg" : "../assets/chess_pawn_bl.svg";
     winnerImage.alt = "Blue Winner";
+
 } else if (orangeScore > blueScore) {
     winnerName.classList.add("orange-winner");
-    if (theme === "Code vibes theme") {
-        winnerName.textContent = "ORANGE PLAYER";
-        winnerImage.src = "../assets/chess_pawn_orange_go.svg";
-    } else {
-        winnerName.textContent = "Orange Player";
-        winnerImage.src = "../assets/chess_pawn_or.svg";
-    }
+    winnerName.textContent = isCodeTheme ? "ORANGE PLAYER" : "Orange Player";
+    winnerImage.src = isCodeTheme ? "../assets/chess_pawn_orange_go.svg" : "../assets/chess_pawn_or.svg";
     winnerImage.alt = "Orange Winner";
+
 } else {
     winnerTitle.textContent = "It's a";
     nextPage?.classList.add("draw-screen");
-    if (theme === "Code vibes theme") {
-        winnerName.innerHTML = `<img class="draw-image" src="../assets/DRAW_green.svg" alt="Draw">`;
-        winnerImage.src = "../assets/Scale_Icon.svg";
-    } else {
-        winnerName.innerHTML = `<img class="draw-image" src="../assets/DRAW_da.svg" alt="Draw">`;
-         winnerImage.src = "../assets/icon_red.svg";
-    }
+    winnerName.innerHTML = isCodeTheme
+        ? `<img class="draw-image" src="../assets/DRAW_green.svg" alt="Draw">`
+        : `<img class="draw-image" src="../assets/DRAW_da.svg" alt="Draw">`;
+
+    winnerImage.src = isCodeTheme ? "../assets/Scale_Icon.svg" : "../assets/icon_red.svg";
     winnerImage.alt = "Draw";
 }
 
@@ -82,10 +65,8 @@ setTimeout(() => {
     if (blueScore === orangeScore) {
         confetti.style.display = "none";
     }
-
     nextPage?.classList.add("visible");
 }, 3000);
-
 backToStartButton?.addEventListener("click", () => {
     window.location.href = "./settings.html";
 });
