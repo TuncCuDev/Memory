@@ -1,6 +1,5 @@
 import './styles/style.scss'
 
-
 const CodeImages = [
     "A (1).svg",
     "A (2).svg",
@@ -81,7 +80,6 @@ createBoard(cards);
 updateScores();
 setDialogText();
 
-
 function loadTheme():void {
     if (theme === "Code vibes theme") {
         document.body.classList.add("theme-code");
@@ -100,65 +98,68 @@ function setStartPlayer():void {
     } 
 }
 
-function getCardCount():void {
-    const board = document.querySelector(".game-board");
-    switch (size) {
-        case "16 cards":
-            cardCount = 16;
-            board?.classList.add("grid-4x4");
-            break;
-        case "24 cards":
-            cardCount = 24;
-            board?.classList.add("grid-6x4");
-            break;
-        case "36 cards":
-            cardCount = 36;
-            board?.classList.add("grid-6x6");
-            break;
-    }
+function getCardCount(): void {
+    cardCount = size === "16 cards" ? 16 :
+                size === "24 cards" ? 24 : 36;
+    setGridClass();
 }
 
-function createBoard(cards: string[]) {
+function setGridClass(): void {
     const board = document.querySelector(".game-board");
+    const grid = `grid-${cardCount === 16 ? "4x4" : cardCount === 24 ? "6x4" : "6x6"}`;
+    board?.classList.add(grid);
+}
 
+function createBoard(cards: string[]): void {
+    const board = document.querySelector(".game-board");
     if (!board) return;
+
     board.innerHTML = "";
-    const backImage = theme === "Code vibes theme"
-        ? "../assets/A Front.svg"
-        : "../assets/DA F.svg";
 
     cards.forEach(image => {
-        const card = document.createElement("div");
-        card.classList.add("card");
-
-        card.dataset.image = image;
-
-        const front = document.createElement("img");
-        front.classList.add("card__front");
-        front.src = `../assets/${image}`;
-
-        const back = document.createElement("img");
-        back.classList.add("card__back");
-        back.src = backImage;
-        card.addEventListener("click", () => {
-
-            if (lockBoard) return;
-            if (card === firstCard) return;
-
-            card.classList.add("open");
-
-            if (!firstCard) {
-                firstCard = card;
-                return;
-            }
-            secondCard = card;
-            lockBoard = true;
-            checkMatch();
-        });
-        card.appendChild(front);
-        card.appendChild(back);
+        const card = createCard(image);
         board.appendChild(card);
     });
+}
+
+function createCard(image: string): HTMLDivElement {
+    const card = document.createElement("div");
+    card.classList.add("card");
+    card.dataset.image = image;
+
+    const front = createCardImage("card__front", `../assets/${image}`);
+    const back = createCardImage("card__back", getBackImage());
+
+    card.append(front, back);
+    card.addEventListener("click", () => handleCardClick(card));
+
+    return card;
+}
+
+function createCardImage(className: string, src: string): HTMLImageElement {
+    const image = document.createElement("img");
+    image.classList.add(className);
+    image.src = src;
+    return image;
+}
+
+function getBackImage(): string {
+    return theme === "Code vibes theme"
+        ? "../assets/A Front.svg"
+        : "../assets/DA F.svg";
+}
+
+function handleCardClick(card: HTMLDivElement): void {
+    if (lockBoard || card === firstCard) return;
+
+    card.classList.add("open");
+    if (!firstCard) {
+        firstCard = card;
+        return;
+    }
+    secondCard = card;
+    lockBoard = true;
+    checkMatch();
 }
 
 exitButton?.addEventListener("click", () => {
