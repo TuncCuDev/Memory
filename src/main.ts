@@ -18,9 +18,7 @@ const menuTheme = document.querySelector(".menu-theme");
 const menuPlayer = document.querySelector(".menu-player");
 const menuSize = document.querySelector(".menu-size");
 
-const previewImage = document.querySelector<HTMLImageElement>(
-    "#theme-preview-image"
-);
+const previewImage = document.querySelector<HTMLImageElement>("#theme-preview-image");
 
 /** Loads saved settings when returning from the game. */
 function loadSavedSettings(): void {
@@ -42,16 +40,12 @@ function loadTheme(): void {
     const theme = Array.from(themes).find(
         item => item.textContent?.trim() === savedTheme
     );
-
     if (!theme || !savedTheme) return;
-
     theme.classList.add("active");
     selectedTheme = savedTheme;
-
     if (theme.dataset.image && previewImage) {
         previewImage.src = theme.dataset.image;
     }
-
     updateMenuItem(menuTheme, savedTheme);
 }
 
@@ -111,28 +105,37 @@ function clearSettings(): void {
 }
 
 /** Updates a menu item with the selected value. */
-function updateMenuItem(element: Element | null, text: string) {
+function updateMenuItem(element: Element | null, text: string): void {
     if (!element) return;
+
     element.textContent = text;
     element.classList.remove("updated");
     void (element as HTMLElement).offsetWidth;
     element.classList.add("updated");
 }
 
-themes.forEach(theme => {
-    theme.addEventListener("mouseenter", () => showThemeImage(theme));
-    theme.addEventListener("mouseleave", showActiveThemeImage);
-    theme.addEventListener("click", () => selectTheme(theme));
-});
+/** Sets up theme event listeners. */
+function setupThemeEvents(): void {
+    themes.forEach(theme => {
+        theme.addEventListener("mouseenter", () => showThemeImage(theme));
+        theme.addEventListener("mouseleave", showActiveThemeImage);
+        theme.addEventListener("click", () => selectTheme(theme));
+    });
+}
 
-players.forEach(player => {
-    player.addEventListener("click", () => selectPlayer(player));
-});
+/** Sets up player event listeners. */
+function setupPlayerEvents(): void {
+    players.forEach(player => {
+        player.addEventListener("click", () => selectPlayer(player));
+    });
+}
 
-sizes.forEach(size => {
-    size.addEventListener("click", () => selectSize(size));
-});
-
+/** Sets up size event listeners. */
+function setupSizeEvents(): void {
+    sizes.forEach(size => {
+        size.addEventListener("click", () => selectSize(size));
+    });
+}
 /** Shows the theme preview image. */
 function showThemeImage(theme: HTMLElement): void {
     const image = theme.dataset.image;
@@ -178,19 +181,17 @@ function setActive(items: NodeListOf<Element>, selected: Element): void {
 }
 
 /** Saves a selected setting. */
-function saveSelection(
-    key: string,
-    value: string,
-    menuItem: Element | null
-): void {
+function saveSelection(key: string, value: string, menuItem: Element | null): void {
     localStorage.setItem(key, value);
     updateMenuItem(menuItem, value);
     checkSettings();
 }
-
 startButton?.addEventListener("click", () => {
     window.location.href = "./game.html";
 });
 
 checkSettings();
 loadSavedSettings();
+setupThemeEvents();
+setupPlayerEvents();
+setupSizeEvents();

@@ -120,7 +120,7 @@ function createBoard(cards: string[]): void {
     const board = document.querySelector(".game-board");
     if (!board) return;
     board.innerHTML = "";
-    
+
     cards.forEach(image => {
         const card = createCard(image);
         board.appendChild(card);
@@ -159,55 +159,79 @@ function handleCardClick(card: HTMLDivElement): void {
     if (lockBoard || card === firstCard) return;
 
     card.classList.add("open");
+
     if (!firstCard) {
         firstCard = card;
         return;
     }
+
     secondCard = card;
     lockBoard = true;
     checkMatch();
 }
 
-exitButton?.addEventListener("click", () => {
+/** Opens the exit dialog. */
+function openExitDialog(): void {
     dialog?.classList.remove("hidden");
-});
+}
 
-noButton?.addEventListener("click", () => {
+/** Closes the exit dialog. */
+function closeExitDialog(): void {
     dialog?.classList.add("hidden");
-});
+}
 
-yesButton?.addEventListener("click", () => {
+/** Quits the game and returns to the settings. */
+function quitGame(): void {
     localStorage.removeItem("score");
     localStorage.removeItem("gameState");
     sessionStorage.setItem("returnFromGame", "true");
     window.location.href = "./settings.html";
-});
+}
+
+exitButton?.addEventListener("click", openExitDialog);
+noButton?.addEventListener("click", closeExitDialog);
+yesButton?.addEventListener("click", quitGame);
 
 /** Checks whether two cards match. */
-function checkMatch() {
-
+function checkMatch(): void {
     if (!firstCard || !secondCard) return;
-    const isMatch =
-        firstCard.dataset.image === secondCard.dataset.image;
+
+    const isMatch = firstCard.dataset.image === secondCard.dataset.image;
+
     if (isMatch) {
-        matchedPairs++;
-        if (currentPlayer === "Blue") {
-            blueScore++;
-        } else {
-            orangeScore++;
-        }
-        updateScores();
-        resetTurn();
-        checkGameOver();
+        handleMatch();
     } else {
-        setTimeout(() => {
-            firstCard!.classList.remove("open");
-            secondCard!.classList.remove("open");
-            switchPlayer();
-            resetTurn();
-        }, 1000);
+        handleMismatch();
     }
-} 
+}
+
+/** Handles a matching pair. */
+function handleMatch(): void {
+    matchedPairs++;
+    updatePlayerScore();
+    updateScores();
+    resetTurn();
+    checkGameOver();
+}
+
+/** Updates the score of the current player. */
+function updatePlayerScore(): void {
+    if (currentPlayer === "Blue") {
+        blueScore++;
+    } else {
+        orangeScore++;
+    }
+}
+
+/** Handles two cards that do not match. */
+function handleMismatch(): void {
+    setTimeout(() => {
+        firstCard?.classList.remove("open");
+        secondCard?.classList.remove("open");
+        switchPlayer();
+        resetTurn();
+    }, 1000);
+}
 
 /** Resets the current turn. */
 function resetTurn() {
@@ -218,7 +242,6 @@ function resetTurn() {
 
 /** Checks if the game is finished. */
 function checkGameOver() {
-
     if (matchedPairs === cardCount / 2) {
         localStorage.setItem("blueScore", blueScore.toString());
         localStorage.setItem("orangeScore", orangeScore.toString());
@@ -239,9 +262,7 @@ restartButton?.addEventListener("click", () => {
 function updateScores() {
     const blue = document.querySelector(".header-left__first");
     const orange = document.querySelector(".header-left__second");
-
     if (!blue || !orange) return;
-
     if (theme === "DA Projects theme") {
         blue.textContent = `${blueScore}`;
         orange.textContent = `${orangeScore}`;
@@ -261,22 +282,38 @@ function switchPlayer() {
     updateCurrentPlayer();
 }
 
-/** Sets the text of the exit dialog. */
-function setDialogText() {
+/** Sets the exit dialog text for the Code theme. */
+function setCodeDialog(): void {
     const noButton = document.querySelector(".dialog__no");
     const yesButton = document.querySelector(".dialog__yes");
     const dialogText = document.querySelector(".dialog__text");
 
     if (!noButton || !yesButton || !dialogText) return;
+
+    noButton.textContent = "No, back to game";
+    yesButton.textContent = "Yes, quit game";
+    dialogText.textContent = "Are you sure you want to quit the game?";
+}
+
+/** Sets the exit dialog text for the DA theme. */
+function setDADialog(): void {
+    const noButton = document.querySelector(".dialog__no");
+    const yesButton = document.querySelector(".dialog__yes");
+    const dialogText = document.querySelector(".dialog__text");
+
+    if (!noButton || !yesButton || !dialogText) return;
+
+    noButton.textContent = "Back to game";
+    yesButton.textContent = "Exit game";
+    dialogText.innerHTML = "Are you sure you want to<br>quit the game?";
+}
+
+/** Sets the exit dialog according to the selected theme. */
+function setDialogText(): void {
     if (theme === "Code vibes theme") {
-        noButton.textContent = "No, back to game";
-        yesButton.textContent = "Yes, quit game";
-        dialogText.textContent = "Are you sure you want to quit the game?"
-    }
-    else if (theme === "DA Projects theme") {
-        noButton.textContent = "Back to game";
-        yesButton.textContent = "Exit game";
-        dialogText.innerHTML = "Are you sure you want to<br>quit the game?"
+        setCodeDialog();
+    } else {
+        setDADialog();
     }
 }
 

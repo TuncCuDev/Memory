@@ -21,46 +21,55 @@ const theme = localStorage.getItem("theme");
 const isCodeTheme = theme === "Code vibes theme";
 
 document.body.classList.add(isCodeTheme ? "theme-code" : "theme-da");
-
 /** Updates the back button text. */
-if (backToStartButton) {
-    backToStartButton.textContent = isCodeTheme ? "Back to start" : "Home";
+function updateBackButton(): void {
+    if (backToStartButton) {
+        backToStartButton.textContent = isCodeTheme ? "Back to start" : "Home";
+    }
 }
 
 /** Updates the displayed scores. */
-if (blueScoreElement) {
-    blueScoreElement.textContent = isCodeTheme ? `Blue ${blueScore}` : `${blueScore}`;
+function updateScoreDisplay(): void {
+    if (blueScoreElement) {
+        blueScoreElement.textContent = isCodeTheme ? `Blue ${blueScore}` : `${blueScore}`;
+    }
+    if (orangeScoreElement) {
+        orangeScoreElement.textContent = isCodeTheme? `Orange ${orangeScore}` : `${orangeScore}`;
+    }
 }
 
-/** Updates the displayed scores. */
-if (orangeScoreElement) {
-    orangeScoreElement.textContent = isCodeTheme ? `Orange ${orangeScore}` : `${orangeScore}`;
+/** Displays the winning player. */
+function showWinner(color: "blue" | "orange"): void {
+    const isBlue = color === "blue";
+
+    winnerName.classList.add(`${color}-winner`);
+    winnerName.textContent = isCodeTheme? `${color.toUpperCase()} PLAYER` : `${isBlue ? "Blue" : "Orange"} Player`;
+    winnerImage.src = isCodeTheme? `../assets/chess_pawn_${color}_go.svg` : `../assets/chess_pawn_${isBlue ? "bl" : "or"}.svg`;
+    winnerImage.alt = `${isBlue ? "Blue" : "Orange"} Winner`;
 }
 
-/** Shows the final game-over screen. */
-if (blueScore > orangeScore) {
-    winnerName.classList.add("blue-winner");
-    winnerName.textContent = isCodeTheme ? "BLUE PLAYER" : "Blue Player";
-    winnerImage.src = isCodeTheme ? "../assets/chess_pawn_blue_go.svg" : "../assets/chess_pawn_bl.svg";
-    winnerImage.alt = "Blue Winner";
-
-/** Shows the final game-over screen. */
-} else if (orangeScore > blueScore) {
-    winnerName.classList.add("orange-winner");
-    winnerName.textContent = isCodeTheme ? "ORANGE PLAYER" : "Orange Player";
-    winnerImage.src = isCodeTheme ? "../assets/chess_pawn_orange_go.svg" : "../assets/chess_pawn_or.svg";
-    winnerImage.alt = "Orange Winner";
-
-/** Shows the final game-over screen. */
-} else {
+/** Displays the draw result. */
+function showDraw(): void {
     winnerTitle.textContent = "It's a";
     nextPage?.classList.add("draw-screen");
-    winnerName.innerHTML = isCodeTheme
-        ? `<img class="draw-image" src="../assets/DRAW_green.svg" alt="Draw">`
-        : `<img class="draw-image" src="../assets/DRAW_da.svg" alt="Draw">`;
 
+    winnerName.innerHTML = isCodeTheme ? `<img class="draw-image" src="../assets/DRAW_green.svg" alt="Draw">` : `<img class="draw-image" src="../assets/DRAW_da.svg" alt="Draw">`;
     winnerImage.src = isCodeTheme ? "../assets/Scale_Icon.svg" : "../assets/icon_red.svg";
     winnerImage.alt = "Draw";
+}
+
+/** Shows the final game result. */
+function showGameResult(): void {
+    updateBackButton();
+    updateScoreDisplay();
+
+    if (blueScore > orangeScore) {
+        showWinner("blue");
+    } else if (orangeScore > blueScore) {
+        showWinner("orange");
+    } else {
+        showDraw();
+    }
 }
 
 /** Returns to the settings page. */
