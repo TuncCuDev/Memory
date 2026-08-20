@@ -22,6 +22,7 @@ const previewImage = document.querySelector<HTMLImageElement>(
     "#theme-preview-image"
 );
 
+/** Loads saved settings when returning from the game. */
 function loadSavedSettings(): void {
     const returnFromGame = sessionStorage.getItem("returnFromGame");
     if (returnFromGame !== "true") {
@@ -35,6 +36,7 @@ function loadSavedSettings(): void {
     checkSettings();
 }
 
+/** Loads and selects the saved theme. */
 function loadTheme(): void {
     const savedTheme = localStorage.getItem("theme");
     const theme = Array.from(themes).find(
@@ -53,6 +55,7 @@ function loadTheme(): void {
     updateMenuItem(menuTheme, savedTheme);
 }
 
+/** Loads and selects the saved player. */
 function loadPlayer(): void {
     const savedPlayer = localStorage.getItem("player");
     const player = Array.from(players).find(
@@ -65,6 +68,7 @@ function loadPlayer(): void {
     updateMenuItem(menuPlayer, savedPlayer);
 }
 
+/** Loads and selects the saved card size. */
 function loadSize(): void {
     const savedSize = localStorage.getItem("size");
     const size = Array.from(sizes).find(
@@ -77,6 +81,7 @@ function loadSize(): void {
     updateMenuItem(menuSize, savedSize);
 }
 
+/** Makes elements selectable. */
 function makeSelectable(selector: string) {
     const items = document.querySelectorAll(selector);
     items.forEach(item => {
@@ -87,12 +92,14 @@ function makeSelectable(selector: string) {
     });
 }
 
+/** Checks whether all settings are selected. */
 function checkSettings():void {
     if (startButton) {
         startButton.disabled = !(selectedTheme && selectedPlayer && selectedSize);
     }
 }
 
+/** Clears all selected settings. */
 function clearSettings(): void {
     selectedTheme = "";
     selectedPlayer = "";
@@ -103,6 +110,7 @@ function clearSettings(): void {
     checkSettings();
 }
 
+/** Updates a menu item with the selected value. */
 function updateMenuItem(element: Element | null, text: string) {
     if (!element) return;
     element.textContent = text;
@@ -125,6 +133,7 @@ sizes.forEach(size => {
     size.addEventListener("click", () => selectSize(size));
 });
 
+/** Shows the theme preview image. */
 function showThemeImage(theme: HTMLElement): void {
     const image = theme.dataset.image;
     if (image && previewImage) {
@@ -132,6 +141,7 @@ function showThemeImage(theme: HTMLElement): void {
     }
 }
 
+/** Restores the active theme preview. */
 function showActiveThemeImage(): void {
     const activeTheme = document.querySelector<HTMLElement>(
         ".main-section__theme.active"
@@ -139,6 +149,7 @@ function showActiveThemeImage(): void {
     if (activeTheme) showThemeImage(activeTheme);
 }
 
+/** Selects and saves a theme. */
 function selectTheme(theme: HTMLElement): void {
     setActive(themes, theme);
     selectedTheme = theme.textContent?.trim() ?? "";
@@ -146,23 +157,27 @@ function selectTheme(theme: HTMLElement): void {
     saveSelection("theme", selectedTheme, menuTheme);
 }
 
+/** Selects and saves a player. */
 function selectPlayer(player: Element): void {
     setActive(players, player);
     selectedPlayer = player.textContent?.trim() ?? "";
     saveSelection("player", selectedPlayer, menuPlayer);
 }
 
+/** Selects and saves a card size. */
 function selectSize(size: Element): void {
     setActive(sizes, size);
     selectedSize = size.textContent?.trim() ?? "";
     saveSelection("size", selectedSize, menuSize);
 }
 
+/** Sets the selected element as active. */
 function setActive(items: NodeListOf<Element>, selected: Element): void {
     items.forEach(item => item.classList.remove("active"));
     selected.classList.add("active");
 }
 
+/** Saves a selected setting. */
 function saveSelection(
     key: string,
     value: string,

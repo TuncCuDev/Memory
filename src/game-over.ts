@@ -22,30 +22,36 @@ const isCodeTheme = theme === "Code vibes theme";
 
 document.body.classList.add(isCodeTheme ? "theme-code" : "theme-da");
 
+/** Updates the back button text. */
 if (backToStartButton) {
     backToStartButton.textContent = isCodeTheme ? "Back to start" : "Home";
 }
 
+/** Updates the displayed scores. */
 if (blueScoreElement) {
     blueScoreElement.textContent = isCodeTheme ? `Blue ${blueScore}` : `${blueScore}`;
 }
 
+/** Updates the displayed scores. */
 if (orangeScoreElement) {
     orangeScoreElement.textContent = isCodeTheme ? `Orange ${orangeScore}` : `${orangeScore}`;
 }
 
+/** Shows the final game-over screen. */
 if (blueScore > orangeScore) {
     winnerName.classList.add("blue-winner");
     winnerName.textContent = isCodeTheme ? "BLUE PLAYER" : "Blue Player";
     winnerImage.src = isCodeTheme ? "../assets/chess_pawn_blue_go.svg" : "../assets/chess_pawn_bl.svg";
     winnerImage.alt = "Blue Winner";
 
+/** Shows the final game-over screen. */
 } else if (orangeScore > blueScore) {
     winnerName.classList.add("orange-winner");
     winnerName.textContent = isCodeTheme ? "ORANGE PLAYER" : "Orange Player";
     winnerImage.src = isCodeTheme ? "../assets/chess_pawn_orange_go.svg" : "../assets/chess_pawn_or.svg";
     winnerImage.alt = "Orange Winner";
 
+/** Shows the final game-over screen. */
 } else {
     winnerTitle.textContent = "It's a";
     nextPage?.classList.add("draw-screen");
@@ -57,6 +63,7 @@ if (blueScore > orangeScore) {
     winnerImage.alt = "Draw";
 }
 
+/** Returns to the settings page. */
 setTimeout(() => {
     gameOverPage?.classList.add("hidden");
     gameOverPg?.classList.add("hidden");

@@ -80,6 +80,8 @@ createBoard(cards);
 updateScores();
 setDialogText();
 
+
+/** Applies the selected theme. */
 function loadTheme():void {
     if (theme === "Code vibes theme") {
         document.body.classList.add("theme-code");
@@ -88,6 +90,7 @@ function loadTheme():void {
     }
 }
 
+/** Sets the starting player. */
 function setStartPlayer():void {
     const headerMiddle = document.querySelector(".header-middle");
     if (!headerMiddle) return;
@@ -98,44 +101,45 @@ function setStartPlayer():void {
     } 
 }
 
+/** Determines the number of cards. */
 function getCardCount(): void {
     cardCount = size === "16 cards" ? 16 :
                 size === "24 cards" ? 24 : 36;
     setGridClass();
 }
 
+/** Sets the board grid layout. */
 function setGridClass(): void {
     const board = document.querySelector(".game-board");
     const grid = `grid-${cardCount === 16 ? "4x4" : cardCount === 24 ? "6x4" : "6x6"}`;
     board?.classList.add(grid);
 }
 
+/** Creates the game board. */
 function createBoard(cards: string[]): void {
     const board = document.querySelector(".game-board");
     if (!board) return;
-
     board.innerHTML = "";
-
+    
     cards.forEach(image => {
         const card = createCard(image);
         board.appendChild(card);
     });
 }
 
+/** Creates a single game card. */
 function createCard(image: string): HTMLDivElement {
     const card = document.createElement("div");
     card.classList.add("card");
     card.dataset.image = image;
-
     const front = createCardImage("card__front", `../assets/${image}`);
     const back = createCardImage("card__back", getBackImage());
-
     card.append(front, back);
     card.addEventListener("click", () => handleCardClick(card));
-
     return card;
 }
 
+/** Creates a card image. */
 function createCardImage(className: string, src: string): HTMLImageElement {
     const image = document.createElement("img");
     image.classList.add(className);
@@ -143,12 +147,14 @@ function createCardImage(className: string, src: string): HTMLImageElement {
     return image;
 }
 
+/** Returns the card back image. */
 function getBackImage(): string {
     return theme === "Code vibes theme"
         ? "../assets/A Front.svg"
         : "../assets/DA F.svg";
 }
 
+/** Handles a card click. */
 function handleCardClick(card: HTMLDivElement): void {
     if (lockBoard || card === firstCard) return;
 
@@ -177,6 +183,7 @@ yesButton?.addEventListener("click", () => {
     window.location.href = "./settings.html";
 });
 
+/** Checks whether two cards match. */
 function checkMatch() {
 
     if (!firstCard || !secondCard) return;
@@ -202,12 +209,14 @@ function checkMatch() {
     }
 } 
 
+/** Resets the current turn. */
 function resetTurn() {
     firstCard = null;
     secondCard = null;
     lockBoard = false;
 }
 
+/** Checks if the game is finished. */
 function checkGameOver() {
 
     if (matchedPairs === cardCount / 2) {
@@ -218,6 +227,7 @@ function checkGameOver() {
     }
 }
 
+/** Restarts the game. */
 restartButton?.addEventListener("click", () => {
     blueScore = 0;
     orangeScore = 0;
@@ -225,6 +235,7 @@ restartButton?.addEventListener("click", () => {
     location.reload();
 });
 
+/** Updates both player scores. */
 function updateScores() {
     const blue = document.querySelector(".header-left__first");
     const orange = document.querySelector(".header-left__second");
@@ -240,6 +251,7 @@ function updateScores() {
     }
 }
 
+/** Switches to the other player. */
 function switchPlayer() {
     if (currentPlayer === "Blue") {
         currentPlayer = "Orange";
@@ -249,6 +261,7 @@ function switchPlayer() {
     updateCurrentPlayer();
 }
 
+/** Sets the text of the exit dialog. */
 function setDialogText() {
     const noButton = document.querySelector(".dialog__no");
     const yesButton = document.querySelector(".dialog__yes");
@@ -267,16 +280,14 @@ function setDialogText() {
     }
 }
 
+/** Updates the current player indicator. */
 function updateCurrentPlayer() {
     const headerMiddle = document.querySelector(".header-middle");
     if (!headerMiddle) return;
-
     headerMiddle.classList.remove("blue", "orange");
-
     if (currentPlayer === "Blue") {
         headerMiddle.classList.add("blue");
     } else {
         headerMiddle.classList.add("orange");
-
     }
 }
