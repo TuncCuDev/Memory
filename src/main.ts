@@ -22,6 +22,50 @@ const previewImage = document.querySelector<HTMLImageElement>(
     "#theme-preview-image"
 );
 
+function loadSavedSettings(): void {
+    const savedTheme = localStorage.getItem("theme");
+    const savedPlayer = localStorage.getItem("player");
+    const savedSize = localStorage.getItem("size");
+
+    if (savedTheme) {
+        const theme = Array.from(themes).find(
+            item => item.textContent?.trim() === savedTheme
+        );
+        if (theme) {
+            theme.classList.add("active");
+            selectedTheme = savedTheme;
+            const image = theme.dataset.image;
+            if (image && previewImage) {
+                previewImage.src = image;
+            }
+            updateMenuItem(menuTheme, savedTheme);
+        }
+    }
+
+    if (savedPlayer) {
+        const player = Array.from(players).find(
+            item => item.textContent?.trim() === savedPlayer
+        );
+        if (player) {
+            player.classList.add("active");
+            selectedPlayer = savedPlayer;
+            updateMenuItem(menuPlayer, savedPlayer);
+        }
+    }
+
+    if (savedSize) {
+        const size = Array.from(sizes).find(
+            item => item.textContent?.trim() === savedSize
+        );
+        if (size) {
+            size.classList.add("active");
+            selectedSize = savedSize;
+            updateMenuItem(menuSize, savedSize);
+        }
+    }
+    checkSettings();
+}
+
 function makeSelectable(selector: string) {
     const items = document.querySelectorAll(selector);
     items.forEach(item => {
@@ -103,4 +147,6 @@ sizes.forEach(size => {
 startButton?.addEventListener("click", () => {
     window.location.href = "./game.html";
 });
+
 checkSettings();
+loadSavedSettings();

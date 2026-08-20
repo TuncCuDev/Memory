@@ -170,8 +170,9 @@ noButton?.addEventListener("click", () => {
 });
 
 yesButton?.addEventListener("click", () => {
-    localStorage.clear();
-    window.location.href = "../index.html";
+    localStorage.removeItem("score");
+    localStorage.removeItem("gameState");
+    window.location.href = "./settings.html";
 });
 
 function checkMatch() {
