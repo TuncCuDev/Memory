@@ -173,6 +173,7 @@ noButton?.addEventListener("click", () => {
 yesButton?.addEventListener("click", () => {
     localStorage.removeItem("score");
     localStorage.removeItem("gameState");
+    sessionStorage.setItem("returnFromGame", "true");
     window.location.href = "./settings.html";
 });
 
@@ -216,7 +217,6 @@ function checkGameOver() {
         window.location.href = "./gameover.html";
     }
 }
-
 
 restartButton?.addEventListener("click", () => {
     blueScore = 0;
