@@ -72,6 +72,8 @@ function showGameResult(): void {
     }
 }
 
+showGameResult();
+
 /** Returns to the settings page. */
 setTimeout(() => {
     gameOverPage?.classList.add("hidden");
