@@ -170,11 +170,11 @@
         background-color: #F6F6F6;
         height: 70px;
         width: 100%;
-        max-width: 700px;
+        max-width: 750px;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 15px;
+        gap: 10px;
 
         .menu-bar {
             display: flex;
@@ -211,10 +211,26 @@
                 cursor: pointer;
                 font-size: 20px;
                 border: none;
+                transition: transform 0.2s ease;
 
                 &:disabled {
                     opacity: 0.5;
                     cursor: not-allowed;
+                }
+
+                &:hover:not(:disabled) {
+                        transform: scale(1.1);
+                }
+
+                 img {
+                    transition: transform 0.2s ease;
+                    transform-origin: center;
+                }
+
+                &:hover:not(:disabled) {
+                    img {
+                        transform: rotate(-8deg);
+                    }
                 }
             }
         }
